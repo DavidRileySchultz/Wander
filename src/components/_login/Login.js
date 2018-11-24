@@ -8,7 +8,6 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   min-height: 100vh;
   width: 100%;
-  ${'' /* background: url('/static/media/bluebeige.dd97c287.jpg'); */}
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -86,10 +85,8 @@ class Login extends Component {
                   <AuthButton>Log In</AuthButton>
                 </Form>
               </Grid.Column>
-            </Grid>
-    
-          </Wrapper>
-    
+            </Grid>    
+          </Wrapper>    
         )
       }
     }
