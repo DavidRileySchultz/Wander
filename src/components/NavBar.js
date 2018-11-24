@@ -11,6 +11,7 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
 `;
+
 const SearchInput = styled.input`
   width: ${props => (props.isOpen ? '65%' : '0%')};
   height: 40px;
@@ -25,20 +26,24 @@ const SearchInput = styled.input`
   transition: all 0.2s ease-in-out;
   -webkit-appearance: none;
 `;
+
 const SearchBar = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
 `;
+
 const SearchIconButton = styled.button`
   background: none;
   border: none;
   outline: none;
 `;
+
 const NavContent = styled.div`
   display: ${props => (props.isVisible ? 'block' : 'none')};
   flex: 1;
 `;
+
 const SearchButton = styled.button`
   margin: 0px 6px;
   border-radius: 6px;
