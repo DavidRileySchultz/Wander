@@ -3,9 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.7.3",
+    "firebase": "^5.5.9",
+    "google-fonts": "^1.0.0",
+    "google-map-react": "^1.1.1",
     "react": "^16.6.3",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "react-fontawesome": "^1.6.1",
+    "react-google-autocomplete": "^1.0.18",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "semantic-ui-react": "^0.83.0",
+    "styled-components": "^4.1.1",
+    "superagent": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,5 +32,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^3.1.6",
+    "typescript-styled-plugin": "^0.13.0"
+  }
 }
