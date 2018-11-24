@@ -2,22 +2,12 @@ import React, { Component } from 'react';
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Header,Button } from 'semantic-ui-react'
-
-
-import nineTen from '../images/best.png'
-import sevenEight from '../images/happy.png'
-import fiveSix from '../images/ok.png'
-import threeFour from '../images/bad.png'
-import oneTwo from '../images/verybad.png'
-
 import {Link} from 'react-router-dom'
 import {Form,  Input } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from './PickImage';
 import firebase from 'firebase';
 import styled from 'styled-components'
-import questions from '../questions.js'
-
 
 const FontAwesome = require('react-fontawesome')
 

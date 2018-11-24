@@ -79,7 +79,6 @@ class ReadEntry extends Component {
       .then(reply => {
         console.log(reply.body)
         this.setState(
-
           {
             singleEntry: reply.body,
             loaded: true
@@ -115,7 +114,7 @@ class ReadEntry extends Component {
             </ContentWrapper>
             <ContentWrapper>
               <QuestionWrapper>
-              <Question>visited</Question>
+              <Question>Visited</Question>
               </QuestionWrapper>
               <AnswerWrapper>
               <p>{this.state.singleEntry.place}</p>
