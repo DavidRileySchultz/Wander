@@ -1,8 +1,7 @@
 import api from './api.js'
 
 export default {
-    createAccount(firstName, lastName, email, password) {
-        
+    createAccount(firstName, lastName, email, password) {        
             return api.createAccount(firstName, lastName, email, password)
     },
 

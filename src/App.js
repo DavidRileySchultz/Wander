@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import CreateAccount from './components/_register/CreateAccount';
+import Login from './components/_login/Login';
+import Dashboard from './components/Dashboard';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Route path="/createaccount" component={CreateAccount} />
+          <Route path="/login" component={Login} />
+          <Route exact path ="/dashboard" render={(props) => <Dashboard {...props} page={'entries'}/>} />
+          <Route path="/dashboard/:page" render={(routeProps) => <Dashboard {...routeProps} page={routeProps.match.params.page}/>} />
+          <footer style={{display: 'block', position: 'fixed', bottom: '5px', left: '1%', 'font-family': 'Barlow Semi Condensed', 'font-seiz': '1.2rem' }}>Riley Schultz</footer>
+        </div>
+      </BrowserRouter>
     );
   }
 }

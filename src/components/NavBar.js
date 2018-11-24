@@ -79,7 +79,7 @@ class NavBar extends Component {
         return (
           <Menu stackable position="right">
             <Menu.Item>
-            <Title>Noctjournal</Title>
+            <Title>Wander</Title>
             </Menu.Item>
             <SearchBar>
               <Form style={{ width: '100%' }} onSubmit={this.handleSubmit}>
