@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
-import { MAPS_API_KEY } from '../config/config.js';
+import { MAPS_API_KEY } from '../../_config/config.js';
 import { Button } from 'semantic-ui-react';
 import EntryPreview from './EntryPreview';
 import styled from 'styled-components';
@@ -259,7 +259,7 @@ class SimpleMap extends Component {
 
     static defaultProps = {
         center: { lat: 45.50, lng: -73.56 },
-        zoom: 12
+        zoom: 1.5
     };
 
     render() {

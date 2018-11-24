@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Card, Image, Button } from 'semantic-ui-react'
-import auth from '../auth.js';
-import api from '../api.js';
+import auth from '../../auth.js';
+import api from '../../api.js';
 
 
 class EntryPreview extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import api from '../api.js'
-import auth from '../auth.js';
+import api from '../../api.js'
+import auth from '../../auth.js';
 import { Grid, Segment, Header,Button } from 'semantic-ui-react'
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';

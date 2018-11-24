@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import api from '../api.js'
-import { Button } from 'semantic-ui-react'
+import api from '../../api';
+import { Button } from 'semantic-ui-react';
 
 
 class PickImage extends Component {

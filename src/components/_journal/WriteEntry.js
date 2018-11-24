@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import api from '../api.js'
-import auth from '../auth.js';
+import api from '../../api.js'
+import auth from '../../auth.js';
 import { Grid, Segment, Header,Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {Form,  Input } from 'semantic-ui-react';
@@ -95,12 +95,6 @@ class WriteEntry extends Component {
         };
       }
 
-      componentDidMount(){
-        this.setState({
-          special_question:questions[14]
-        })
-      }
-
       selectImage = photo => {
         this.setState({
           chosenPhoto: photo
@@ -170,16 +164,7 @@ class WriteEntry extends Component {
             .then(() => this.props.reloadEntries())
             .then(() => this.props.history.push('/dashboard'));
         };
-        setMoodDescription = (rating) => {
-            let entryMood =
-            rating >= 9 ? `${nineTen}`:
-              rating >= 7 ? `${sevenEight}`:
-                rating >= 5 ? `${fiveSix}` :
-                  rating >= 3 ? `${threeFour}` :
-                    rating >= 0 ? `${oneTwo}`: "Another day";
-          return entryMood;
-        }
-
+       
           render() {
     return (
       <div style={{display: 'flex', 'align-content': 'center', 'justify-content': 'center'}} >    

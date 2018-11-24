@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from '../auth.js';
+import auth from '../../auth.js';
 import { Form, Grid, Header } from 'semantic-ui-react'
 import styled from 'styled-components'
 

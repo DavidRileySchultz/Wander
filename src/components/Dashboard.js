@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
-import DisplayEntries from './DisplayEntries';
+import DisplayEntries from './_journal/DisplayEntries';
 import NavBar from './NavBar';
-import SimpleMap from './SimpleMap';
+import SimpleMap from './_journal/SimpleMap';
 import api from '../api.js';
 import auth from '../auth.js';
-import SimpleChart from './SimpleChart';
-import WriteEntryNew from './WriteEntryNew';
+import WriteEntryNew from './_journal/WriteEntry';
 import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
-import ReadEntry from './ReadEntry';
-import EditEntry from './EditEntry';
+import ReadEntry from './_journal/ReadEntry';
+import EditEntry from './_journal/EditEntry';
 
 
 const MainWrapper = styled.div`
@@ -233,17 +232,6 @@ const ResultsHeader = props => {
                 return <DisplayEntries entries={this.state.entries} />;
               }}
             />            
-            <Route
-              path={`/dashboard/stats`}
-              render={() => {
-                return (
-                  <SimpleChart
-                    hist={this.props.history}
-                    entries={this.state.entries.slice().reverse()}
-                  />
-                );
-              }}
-            />
             <Route
               path={`/dashboard/map`}
               render={() => {

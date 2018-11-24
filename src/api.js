@@ -1,4 +1,4 @@
-import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './config/config.js';
+import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
 
 

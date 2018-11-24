@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import api from '../api.js'
-import auth from '../auth'
+import api from '../../api.js'
+import auth from '../../auth.js'
 import { Header, Button, Form, Grid, Input } from 'semantic-ui-react'
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from "./PickImage"
@@ -17,7 +17,7 @@ const config = {
     messagingSenderId: "93575872728"
 };
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 const storage = firebase.storage()
 const storageRef = storage.ref("")
