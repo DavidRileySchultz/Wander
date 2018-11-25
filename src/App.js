@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/writeentry" component={WriteEntry} />
           <Route path="/readentry/:id" component={ReadEntry} />
           <Route path="/testingmap" component={SimpleMap} />
-          <footer style={{display: 'block', position: 'fixed', bottom: '5px', left: '1%', 'font-family': 'Barlow Semi Condensed', 'font-seiz': '1.2rem' }}>Riley Schultz</footer>
+          <footer style={{display: 'block', position: 'fixed', bottom: '5px', left: '1%', 'fontfamily': 'Barlow Semi Condensed', 'fontsize': '1.2rem' }}>Riley Schultz</footer>
         </div>
       </BrowserRouter>
     );

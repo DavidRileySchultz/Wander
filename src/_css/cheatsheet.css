@@ -1,0 +1,24 @@
+const SidebarLink = styled.div`
+    &:hover {
+        background: lightblue;
+        & > span {
+            display: inline-block;
+            transform: scale(1.2);
+        }
+    }
+`
+
+const Preview = styled.div ` 
+    position: absolute;
+    padding: 10px;
+    background: #fff;
+    top: 0;
+    transform: translate(-25%, -100%);
+    border-radius: 2px;
+`
+font-family: 'Loved by the King', cursive;
+font-family: 'Sue Ellen Francisco', cursive;
+font-family: 'Barlow Semi Condensed', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Crimson Text', serif;
+font-family: 'Slabo 27px', serif;

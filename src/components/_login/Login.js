@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   background-position: center;
   height: 100%;
   verticalAlign: center;
+  horizontalAlign: center;
   background-color: rgb(242, 242, 242);
 `
 const SEFHeader = styled.h1`
