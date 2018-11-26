@@ -113,14 +113,14 @@ class WriteEntry extends Component {
       };
 
       handleSubmit = event => {
-        event.preventDefault();
-    
+        event.preventDefault();    
         console.log('submitting form.');
-        let entryPhoto = this.state.chosenPhoto;
-        let entryDataObj = {
+        var entryPhoto = this.state.chosenPhoto;
+        var entryDataObj = {
           title: this.state.title,
           content: this.state.content,
-          place:this.state.place
+          place:this.state.place,
+          userId: userId
         };
 
         const p1 = api.requestLatLong(this.state.place).then(object => {

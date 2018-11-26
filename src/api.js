@@ -12,7 +12,7 @@ class Api {
     requestUserObject = (token) => {
         return superagent
             .get(`${apiHost}/api/auth/me`)
-            .set('authorisation', token)
+            .set('authorization', token)
     }
 
     requestLogin = (email, password) => {
@@ -21,36 +21,35 @@ class Api {
             .send({ email, password })   
     }
 
-    requestEntries = (token, days, searchTerm, moodLimit) => {
+    requestEntries = (token, days, searchTerm) => {
         console.log("requesting entries in last", days, "days.",
             `using searchterm ${searchTerm}`)
         return superagent
             .get(`${apiHost}/api/entries`)
             .set({
-                'authorisation': token,
+                'authorization': token,
                 'days': days,
-                'searchTerm': searchTerm,
-                'moodLimit': moodLimit
+                'searchTerm': searchTerm
             })
     }
 
     requestSingleEntry = (id, token) => {
         return superagent
             .get(`${apiHost}/api/entries/${id}`)
-            .set('authorisation', token)
+            .set('authorization', token)
     }
 
     createSingleEntry = (entryDataObj, token) => {
         return superagent
             .post(`${apiHost}/api/entries`)
-            .set('authorisation', token)
+            .set('authorization', token)
             .send(entryDataObj)
     }
 
     editSingleEntry = (entryDataObj, token, entry_id) => {
         return superagent
             .post(`${apiHost}/api/entries/${entry_id}`)
-            .set('authorisation', token)
+            .set('authorization', token)
             .send(entryDataObj)
     }
 
@@ -69,15 +68,14 @@ class Api {
     requestLogout = (token) => {
         return superagent
             .delete(`${apiHost}/api/auth/logout`)
-            .set('authorisation', token)
-            //cause superagent's voodoo magic needs to have a .then 
+            .set('authorization', token)
             .then(response => console.log(response))
     }
 
     requestDeleteEntry = (id, token) => {
         return superagent
             .delete(`${apiHost}/api/entries/${id}`)
-            .set('authorisation', token)
+            .set('authorization', token)
             .then(reply => console.log('working', reply))
     }
 

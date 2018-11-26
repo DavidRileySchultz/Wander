@@ -15,13 +15,14 @@ const Wrapper = styled.div`
   verticalAlign: center;
   horizontalAlign: center;
   background-color: rgb(242, 242, 242);
-`
+`;
+
 const SEFHeader = styled.h1`
   font-family: 'Sue Ellen Francisco', cursive;
   font-size: 4em;
   color: rgb(47,67,88);
   padding-bottom: 0.35em;
-`
+`;
 
 const AuthButton = styled.button`
   margin: 9px .25em 1em 0em;
@@ -34,12 +35,12 @@ const AuthButton = styled.button`
   color: #fdfbf9;
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   width: 100%;
+`;
 
-`
 const GenText = styled.p`
   font-family: 'Roboto', sans-serif;
-    margin: 0.1em;
-`
+  margin: 0.1em;
+`;
 
 class Login extends Component {
     constructor() {
@@ -69,7 +70,7 @@ class Login extends Component {
           body > div,
           body > div > div,
           body > div > div > div.login-form {
-            height: 100%;
+          height: 100%;
           }
         `}</style>
     
