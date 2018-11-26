@@ -53,6 +53,25 @@ class Api {
             .send(entryDataObj)
     }
 
+    createSingleItinerary = (itineraryDataObj, token) => {
+        return superagent
+            .post(`${apiHost}/api/itineraries`)
+            .set('authorization', token)
+            .send(itineraryDataObj)
+    }
+
+    requestSingleItinerary = (id, token) => {
+        return superagent   
+            .get(`${apiHost}/api/itineraries${id}`)
+            .set('authorization', token)
+    }
+    editSingleItinerary = (itineraryDataObj, token, itinerary_id) => {
+        return superagent
+            .post(`${apiHost}/api/intineraries/${entry_id}`)
+            .set('authorization', token)
+            .send(itineraryDataObj)
+    }
+
     getUnsplashImage = (searchQuery) => {
         console.log("searching for images with query:", searchQuery)
         return superagent
@@ -75,6 +94,13 @@ class Api {
     requestDeleteEntry = (id, token) => {
         return superagent
             .delete(`${apiHost}/api/entries/${id}`)
+            .set('authorization', token)
+            .then(reply => console.log('working', reply))
+    }
+
+    requestDeleteItinerary = (id, token) => {
+        return superagent
+            .delete(`${apiHost}/api/itineraries/${id}`)
             .set('authorization', token)
             .then(reply => console.log('working', reply))
     }

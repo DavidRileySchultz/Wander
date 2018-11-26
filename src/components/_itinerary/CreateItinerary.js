@@ -120,7 +120,7 @@ class CreateItinerary extends Component {
 
     render() {
         return (
-            <div styler={{ display: 'flex', 'align-content': 'center', 'justify-content': 'center' }} >
+            <div style={{ display: 'flex', 'align-content': 'center', 'justify-content': 'center' }} >
                 <PageWrapper>
                     <TitleWrapper>
                         <Title>Plan You Trip!</Title>
