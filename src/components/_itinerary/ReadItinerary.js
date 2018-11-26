@@ -199,7 +199,7 @@ class ReadItinerary extends Component {
               <p>{this.state.singleItinerary.dayTen}</p>
               </AnswerWrapper>
             </ContentWrapper>
-              <CreateButton size="massive" as={Link} to={`/dashboard/editentry/${this.state.singleItinerary.id}`}>
+              <CreateButton size="massive" as={Link} to={`/dashboard/edititinerary/${this.state.singleItinerary.id}`}>
                    <FontAwesome name="pencil"/> 
               </CreateButton>            
              </MainContent>

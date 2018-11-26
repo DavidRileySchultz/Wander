@@ -35,7 +35,7 @@ class EntryPreview extends Component {
             </Link>
             <Card.Content>
               <Card.Header>
-                {this.props.data.title}
+                {this.props.data.tripName}
               </Card.Header>
               <Card.Meta>
                 <span className='date'>
