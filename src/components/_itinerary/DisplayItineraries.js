@@ -42,7 +42,7 @@ class DisplayItineraries extends Component {
                         <CreateButton size="massive" as={Link} to='/dashboard/createitinerary'> + </CreateButton>
                         </ButtonPosition>
                         <Card.Header>
-                            Create a new entry! 
+                            Create a new itinerary! 
                         </Card.Header>
                     </div>
                 </Card>
