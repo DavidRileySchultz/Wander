@@ -2,13 +2,11 @@
   "name": "wander-capstone",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "chart.js": "^2.7.3",
+  "dependencies": {    
     "firebase": "^5.5.9",
     "google-fonts": "^1.0.0",
     "google-map-react": "^1.1.1",
     "react": "^16.6.3",
-    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-fontawesome": "^1.6.1",
     "react-google-autocomplete": "^1.0.18",
