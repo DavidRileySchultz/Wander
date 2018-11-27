@@ -69,13 +69,16 @@ class NavBar extends Component {
         this.props.hist.push('/');
       });
     };
+
     handleSubmit = event => {
       event.preventDefault();
       this.props.handleClick();
     };
+
     handleRedirectToDashboard = event => {
-      this.props.hist.push('/dashboard');
+      this.props.history.push('/dashboard');
     };
+
     toggleSearch = () => {
       this.setState({ navOpen: !this.state.navOpen });
     };
@@ -104,7 +107,7 @@ class NavBar extends Component {
                 <NavContent isVisible={!this.state.navOpen} center>
               {this.props.resultsHeader}
             </NavContent>
-            <NavContent isVisible={this.state.navOpen}>
+            {/* <NavContent isVisible={this.state.navOpen}>
               <span style={{'padding': '0 0.5em', 'fontFamily': 'Barlow Semi Condensed'}}>in the last</span>
               <select
                 ref={r => (this.periodSelector = r)}
@@ -128,13 +131,11 @@ class NavBar extends Component {
                 <option value="">all time</option>
               </select>
               <SearchButton onClick={this.toggleSearch}>Search</SearchButton>
-            </NavContent>
+            </NavContent> */}
           </Form>
         </SearchBar>
         <Menu.Menu position="right">
-          <Menu.Item name="logOut" onClick={this.handleLogOut}>
-            Log out
-          </Menu.Item>
+          <Menu.Item name="logOut" onClick={this.handleLogOut}>Log out</Menu.Item>
         </Menu.Menu>
       </Menu>
     );

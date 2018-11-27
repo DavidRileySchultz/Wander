@@ -82,7 +82,6 @@ const Question = styled.header`
   width: 90%;
 `
 
-
 class WriteEntry extends Component {
     constructor() {
         super();
@@ -133,9 +132,9 @@ class WriteEntry extends Component {
               entryPhoto
             ),
             this.setState({ loadingWrite: true }),
-            storageRef
+            firebase
               .child(
-                `user_uploaded_photos/${auth.getUser().user_id}/${
+                `user_uploaded_photos/${auth.getUser().UID}/${
                   this.state.title
                 }/${entryPhoto.name}`
               )
@@ -144,6 +143,7 @@ class WriteEntry extends Component {
                 entryDataObj.full_image_url = snapshot.downloadURL;
                 entryDataObj.thumbnail_image_url = snapshot.downloadURL;
               }))
+
           : 
 
             (console.log(
@@ -164,7 +164,7 @@ class WriteEntry extends Component {
             .then(() => this.props.history.push('/dashboard'));
         };
        
-          render() {
+  render() {
     return (
       <div style={{display: 'flex', 'align-content': 'center', 'justify-content': 'center'}} >    
           <PageWrapper>
@@ -206,7 +206,7 @@ class WriteEntry extends Component {
               <Question>Where did you go today?</Question>
               </QuestionWrapper>
               <AnswerWrapper>
-              <Autocomplete
+              {/* <Autocomplete
                   style={{ width: '90%' }}
                   onPlaceSelected={place => {
                     this.setState({ place: place.formatted_address });
@@ -217,7 +217,7 @@ class WriteEntry extends Component {
                   }}
                   types={[]}
                   componentRestrictions={{}}
-                />
+                /> */}
               </AnswerWrapper>
             </ContentWrapper>
             <Button onClick={this.handleSubmit}>
@@ -226,7 +226,7 @@ class WriteEntry extends Component {
             </MainContent>
             </form>
         </PageWrapper>
-        </div>
+      </div>
     )
   }
 }

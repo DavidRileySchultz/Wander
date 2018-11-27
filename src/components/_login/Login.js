@@ -63,7 +63,7 @@ class Login extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
-          this.props.history.push('/');
+          this.props.history.push("/dashboard");
         })
         .catch((error) => {
           this.setState({ error: error });

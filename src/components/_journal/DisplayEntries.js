@@ -28,12 +28,20 @@ width: 100%;
 
 class DisplayEntries extends Component {
 
+    componentDidMount() {
+        const skyScanner = document.createElement("script");
+        skyScanner.src = "http://widgets.skyscanner.net/widget-server/js/loader.js";
+        skyScanner.async = true;
+        document.body.appendChild(skyScanner);
+    }
+    
     displayEntryPreview = (entryObj) => {
         return (<EntryPreview data={entryObj} key={entryObj.id} />)
     }
 
     render() {
         return (
+            <div>
             <CardWrapper>
                 <Card>
                     <div />
@@ -50,6 +58,10 @@ class DisplayEntries extends Component {
                     this.props.entries.map(this.displayEntryPreview) :
                     null}
             </CardWrapper>
+                <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 
+            </div>
+
+            
         )
     }
 }

@@ -56,29 +56,12 @@ class CreateAccount extends Component {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((user) => {
-          this.props.history.push('/');
+          this.props.history.push("/dashboard");
         })
         .catch((error) => {
           this.setState({ error: error})
         })
     }
-  
-    // handleSubmit = (event) => {
-    //   event.preventDefault();
-    //   const userRef = firebase.database().ref('users');
-    //   if(this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
-    //     userRef.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
-    //     .then(response => console.log('login reply: ', response))
-    //     .then(() => this.props.history.push("/login"))
-    //     .catch(err => {
-    //       console.log('error ', err);
-    //       this.props.history.push("/dashboard")
-    //     })
-    //   }
-    //   else {this.setState( {missingInput: true})
-  
-      // }
-      //   }
     
         render() {
             return (

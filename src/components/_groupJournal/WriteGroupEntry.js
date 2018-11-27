@@ -110,8 +110,7 @@ class WriteGroupEntry extends Component {
       };
 
       handleSubmit = event => {
-        event.preventDefault();
-    
+        event.preventDefault();    
         console.log('submitting form.');
         let entryPhoto = this.state.chosenPhoto;
         let entryDataObj = {

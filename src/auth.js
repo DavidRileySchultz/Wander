@@ -1,36 +1,38 @@
-import api from './api.js'
+import api from './api.js';
+import firebase from 'firebase';
 
 export default {
-    createAccount(firstName, lastName, email, password) {        
-            return api.createAccount(firstName, lastName, email, password)
+
+    createAccount(email, password) {        
+            return api.createAccount(email, password)
     },
 
     login(email, password) {
             return api.requestLogin(email, password)
-                .then(resp => localStorage.token = resp.body.token)
+                .then(resp => firebase.token = resp.body.token)
                 .then(resp => api.requestUserObject(this.getToken()))
-                .then(resp => localStorage.userObject = JSON.stringify(resp.body))
+                .then(resp => firebase.userObject = JSON.stringify(resp.body))
     },
 
     getToken() {
-        return localStorage.token;
+        return firebase.token;
     },
 
     getUser() {
-        return localStorage.userObject ?
-         JSON.parse(localStorage.userObject)
+        return firebase.UID ?
+         JSON.parse(firebase.UID)
         : null
     },
 
     logOut(token) {
        return api.requestLogout(token)
             .then(() => {
-                delete localStorage.token;
-                delete localStorage.userObject
+                delete firebase.token;
+                delete firebase.userObject
             })
             .catch((err) => {
-                delete localStorage.token;
-                delete localStorage.userObject
+                delete firebase.token;
+                delete firebase.userObject
             })
     },
 
