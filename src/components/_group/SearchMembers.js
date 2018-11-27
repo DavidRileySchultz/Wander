@@ -39,3 +39,5 @@ class SearchMembers extends Component {
         );
     }
 }
+
+export default SearchMembers;

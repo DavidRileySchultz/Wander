@@ -173,3 +173,5 @@ class EditGroup extends Component {
         );
     }
 }
+
+export default EditGroup;

@@ -149,3 +149,5 @@ class CreateGroup extends Component {
         );
     }
 }
+
+export default CreateGroup;
