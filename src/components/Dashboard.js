@@ -207,7 +207,7 @@ const NavButton = styled(Button)`
               </Link>
               <Link to="/dashboard/groups" style={{ textDecoration: 'none' }}>
                 <SidebarLink isActive={this.props.page === 'groups'}>
-                  <Options>Groups</Options>
+                  <Options>Group</Options>
                 </SidebarLink>
               </Link>
               <Link to="/dashboard/map" style={{ textDecoration: 'none' }}>

@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import api from '../../api.js'
 import auth from '../../auth.js';
-import { Grid, Segment, Header,Button } from 'semantic-ui-react'
+import { Grid, Segment, Header, Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {Form,  Input } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from './PickImage';
-import firebase from 'firebase';
-import styled from 'styled-components'
+import firebase from '../../firebase.js';
+import styled from 'styled-components';
 
-const FontAwesome = require('react-fontawesome')
-
-const config = {
-    apiKey: "AIzaSyANRTOu6PW7PLUeIlLd4S91EJxawTkbV2g",
-    authDomain: "wander-d271d.firebaseapp.com",
-    databaseURL: "https://wander-d271d.firebaseio.com",
-    projectId: "wander-d271d",
-    storageBucket: "wander-d271d.appspot.com",
-    messagingSenderId: "93575872728"
-  };
-  firebase.initializeApp(config);
-  
-  const storage = firebase.storage();
-  const storageRef = storage.ref('');
+const FontAwesome = require('react-fontawesome');
+const { currentUser } = firebase.auth();
 
 const Title = styled.h1`
   display: flex;
@@ -131,10 +119,10 @@ class WriteEntry extends Component {
               'User chose to upload photo. Uploadng to Firebase:',
               entryPhoto
             ),
-            this.setState({ loadingWrite: true }),
+            // this.setState({ loadingWrite: true }),
             firebase
               .child(
-                `user_uploaded_photos/${auth.getUser().UID}/${
+                `user_uploaded_photos/${firebase.database().ref(`/users/${currentUser.uid}`)}/${
                   this.state.title
                 }/${entryPhoto.name}`
               )
@@ -172,7 +160,7 @@ class WriteEntry extends Component {
               chosenPhoto={this.state.chosenPhoto}
               selectImage={this.selectImage}
               deleteChosenPhoto={this.deleteChosenPhoto}
-            />
+          />
             <TitleWrapper>
               <Title>Write a new entry</Title>
             </TitleWrapper>
