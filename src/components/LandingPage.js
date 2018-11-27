@@ -50,7 +50,7 @@ class LandingPage extends Component {
       <Div>
       	<Title>Welcome to Wander!</Title>
         <div>
-        <Link to="/createaccount"><LandingButton>Create Account</LandingButton></Link>
+          <Link to="/createaccount"><LandingButton>Create Account</LandingButton></Link>
           <Link to="/login"><LandingButton>Log In</LandingButton></Link>
         </div>
         </Div>

@@ -67,7 +67,7 @@ class Api {
     }
     editSingleItinerary = (itineraryDataObj, token, itinerary_id) => {
         return superagent
-            .post(`${apiHost}/api/intineraries/${entry_id}`)
+            .post(`${apiHost}/api/intineraries/${itinerary_id}`)
             .set('authorization', token)
             .send(itineraryDataObj)
     }

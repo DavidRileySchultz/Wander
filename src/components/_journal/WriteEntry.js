@@ -119,8 +119,7 @@ class WriteEntry extends Component {
         var entryDataObj = {
           title: this.state.title,
           content: this.state.content,
-          place:this.state.place,
-          userId: userId
+          place:this.state.place
         };
 
         const p1 = api.requestLatLong(this.state.place).then(object => {

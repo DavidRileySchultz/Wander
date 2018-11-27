@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from '../../auth.js';
+import firebase from 'firebase';
 import { Form, Grid, Header } from 'semantic-ui-react'
 import styled from 'styled-components'
 import 'google-fonts';
@@ -39,29 +39,46 @@ class CreateAccount extends Component {
     constructor() {
       super()
       this.state = {
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
-        missingInput: false
+        missingInput: false,
       }
     }
-  
+
+    handleInputChange = (event) => {
+      this.setState({ [event.target.name]: event.target.value });
+    }
+
     handleSubmit = (event) => {
       event.preventDefault();
-      if(this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
-        auth.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
-        .then(response => console.log('login reply: ', response))
-        .then(() => this.props.history.push("/login"))
-        .catch(err => {
-          console.log('error ', err);
-          this.props.history.push("/dashboard")
+      const { email, password } = this.state;
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          this.props.history.push('/');
         })
-      }
-      else {this.setState( {missingInput: true})
+        .catch((error) => {
+          this.setState({ error: error})
+        })
+    }
   
-      }
-        }
+    // handleSubmit = (event) => {
+    //   event.preventDefault();
+    //   const userRef = firebase.database().ref('users');
+    //   if(this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
+    //     userRef.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
+    //     .then(response => console.log('login reply: ', response))
+    //     .then(() => this.props.history.push("/login"))
+    //     .catch(err => {
+    //       console.log('error ', err);
+    //       this.props.history.push("/dashboard")
+    //     })
+    //   }
+    //   else {this.setState( {missingInput: true})
+  
+      // }
+      //   }
     
         render() {
             return (
@@ -78,8 +95,6 @@ class CreateAccount extends Component {
                   <Grid.Column style={{ maxWidth: 450 }}>
                     <SEFHeader>Create Account</SEFHeader>
                     <Form onSubmit={this.handleSubmit}>
-                      <Form.Input type='text' placeholder="First Name" value={this.state.firstName} onChange={(e) => this.setState({firstName: e.target.value})} />
-                      <Form.Input type='text' placeholder="Last Name" value={this.state.lastName} onChange={(e) => this.setState({lastName: e.target.value})} />
                       <Form.Input type='email' placeholder="Email" value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
                       <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}  />                      
                        {this.state.missingInput && (<Header as="h5" color="red" textAlign="center">Looks like you forgot something</Header>)}
@@ -93,3 +108,4 @@ class CreateAccount extends Component {
         }
         
         export default CreateAccount;
+

@@ -152,7 +152,6 @@ const ResultsHeader = props => {
           auth.getToken(),
           this.state.searchPeriod,
           this.state.searchTerm,
-          this.state.moodLimit
         )
         .then(reply =>
           this.setState({

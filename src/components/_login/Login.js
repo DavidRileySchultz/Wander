@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from '../../auth.js';
+import firebase from 'firebase';
 import { Form, Grid } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import styled from 'styled-components'
@@ -51,17 +51,24 @@ class Login extends Component {
         error: null
       }
     }
-  
+
+    handleInputChange = (event) => {
+      this.setState({ [event.target.name]: event.target.value });
+    }
+
     handleSubmit = (event) => {
       event.preventDefault();
-      auth.login(this.state.email, this.state.password)
-        .then(response => console.log('login reply: ', response))
-        .then(() => this.props.history.push("/dashboard"))
-        .catch(err => {
-          console.log('error ', err);
-          this.setState( { error: 'Oops, something went wrong.' })
+      const { email, password } = this.state;
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          this.props.history.push('/');
         })
-    }
+        .catch((error) => {
+          this.setState({ error: error });
+        });
+    };
 
     render() {
         return (
