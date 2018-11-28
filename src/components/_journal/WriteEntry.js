@@ -34,15 +34,15 @@ const CreateButton = styled(Button)`
 const PageWrapper = styled.div`
   width: 53.45rem;
   padding-bottom: 10%;
-`
+`;
 
 const TitleWrapper = styled.div`
   padding: 1.4rem 0;
-`
+`;
 
 const MainContent = styled.div`
   width: 53.45rem;
-`
+`;
 
 const ContentWrapper = styled.div`
      max-width: 940px;
@@ -50,12 +50,12 @@ const ContentWrapper = styled.div`
      display: grid;
      grid-template-columns: 1fr 1fr;
      grid-gap: 10px;
-`
+`;
 
 const QuestionWrapper = styled.div`
   padding-top: 1.5rem;
   text-align: right;
-`
+`;
 
 const AnswerWrapper = styled.div`
   text-align: left;
@@ -63,12 +63,12 @@ const AnswerWrapper = styled.div`
   padding: 1rem;
     flex-direction: column;
     display: flex;
-`
+`;
 
 const Question = styled.header`
   font-family: 'Roboto Slab';
   width: 90%;
-`
+`;
 
 class WriteEntry extends Component {
     constructor() {
@@ -87,6 +87,7 @@ class WriteEntry extends Component {
           chosenPhoto: photo
         });
       };
+
       deleteChosenPhoto = () => {
         this.setState({
           chosenPhoto: null
@@ -119,7 +120,7 @@ class WriteEntry extends Component {
               'User chose to upload photo. Uploadng to Firebase:',
               entryPhoto
             ),
-            // this.setState({ loadingWrite: true }),
+            this.setState({ loadingWrite: true }),
             firebase
               .child(
                 `user_uploaded_photos/${firebase.database().ref(`/users/${currentUser.uid}`)}/${
@@ -194,7 +195,7 @@ class WriteEntry extends Component {
               <Question>Where did you go today?</Question>
               </QuestionWrapper>
               <AnswerWrapper>
-              {/* <Autocomplete
+              <Autocomplete
                   style={{ width: '90%' }}
                   onPlaceSelected={place => {
                     this.setState({ place: place.formatted_address });
@@ -205,7 +206,7 @@ class WriteEntry extends Component {
                   }}
                   types={[]}
                   componentRestrictions={{}}
-                /> */}
+                />
               </AnswerWrapper>
             </ContentWrapper>
             <Button onClick={this.handleSubmit}>

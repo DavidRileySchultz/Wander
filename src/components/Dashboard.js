@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import SimpleMap from './_journal/SimpleMap';
 import api from '../api.js';
 import auth from '../auth.js';
-import WriteEntryNew from './_journal/WriteEntry';
+import WriteEntry from './_journal/WriteEntry';
 import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './_journal/ReadEntry';
@@ -84,46 +84,46 @@ const NavButton = styled(Button)`
   }
 `;
 
-// const ResultsHeader = props => {
-//     let currentPeriod =
-//       props.currentPeriod === 1
-//         ? 'day'
-//         : props.currentPeriod === 7
-//           ? 'week'
-//           : props.currentPeriod === 10
-//             ? '10 days'
-//             : props.currentPeriod === 30
-//               ? 'month'
-//               : props.currentPeriod === 90
-//                 ? '3 months'
-//                 : props.currentPeriod === 180
-//                   ? '6 months'
-//                   : props.currentPeriod === 365 ? 'year' : null;
+const ResultsHeader = props => {
+    let currentPeriod =
+      props.currentPeriod === 1
+        ? 'day'
+        : props.currentPeriod === 7
+          ? 'week'
+          : props.currentPeriod === 10
+            ? '10 days'
+            : props.currentPeriod === 30
+              ? 'month'
+              : props.currentPeriod === 90
+                ? '3 months'
+                : props.currentPeriod === 180
+                  ? '6 months'
+                  : props.currentPeriod === 365 ? 'year' : null;
   
-//     let currentSearch = props.currentSearchTerm ? props.currentSearchTerm : null;
+    let currentSearch = props.currentSearchTerm ? props.currentSearchTerm : null;
   
-//     let periodText = currentPeriod
-//       ? `Showing entries from the past ${currentPeriod}`
-//       : null;
-//     let searchText = currentSearch
-//       ? `Showing entries matching "${currentSearch}"`
-//       : null;
-//     let periodAndSearchText =
-//       currentPeriod && currentSearch
-//         ? `Showing entries matching "${currentSearch}" in the past ${
-//             currentPeriod
-//           }`
-//         : null;
-//     let genericText = `Showing all entries`;
-//     return (
-//       <NavHeader>
-//         {periodAndSearchText
-//           ? periodAndSearchText
-//           : periodText ? periodText : searchText ? searchText : genericText}
-//         {periodAndSearchText||periodText||searchText?<NavButton onClick={props.searchReset}>reset</NavButton>:null}
-//       </NavHeader>
-//     );
-//   };
+    let periodText = currentPeriod
+      ? `Showing entries from the past ${currentPeriod}`
+      : null;
+    let searchText = currentSearch
+      ? `Showing entries matching "${currentSearch}"`
+      : null;
+    let periodAndSearchText =
+      currentPeriod && currentSearch
+        ? `Showing entries matching "${currentSearch}" in the past ${
+            currentPeriod
+          }`
+        : null;
+    let genericText = `Showing all entries`;
+    return (
+      <NavHeader>
+        {periodAndSearchText
+          ? periodAndSearchText
+          : periodText ? periodText : searchText ? searchText : genericText}
+        {periodAndSearchText||periodText||searchText?<NavButton onClick={props.searchReset}>reset</NavButton>:null}
+      </NavHeader>
+    );
+  };
 
   class Dashboard extends Component {
     constructor() {
@@ -166,33 +166,33 @@ const NavButton = styled(Button)`
     handleClick = () => {
       this.loadEntries();      
     };
-    // searchReset = () => {
-    //   this.setState(
-    //     {
-    //       searchPeriod: '',
-    //       searchTerm: ''
-    //     },
-    //     this.loadEntries
-    //   );
-    // };
+    searchReset = () => {
+      this.setState(
+        {
+          searchPeriod: '',
+          searchTerm: ''
+        },
+        this.loadEntries
+      );
+    };
   
     render() {
       return (
         <div className="dashboard">
           <NavBar
-            // hist={this.props.history}
-            // updateSearchTerm={searchTerm => this.setState({ searchTerm })}
-            // updatePeriod={searchPeriod => this.setState({ searchPeriod })}
-            // searchTermValue={this.state.searchTerm}
-            // periodValue={this.state.searchPeriod}
-            // handleClick={this.handleClick}
-            // resultsHeader={
-            //   // <ResultsHeader
-            //   //   currentSearchTerm={this.state.currentSearchTerm}
-            //   //   currentPeriod={this.state.currentPeriod}
-            //   //   searchReset={this.searchReset}
-            //   // />
-            // }
+            hist={this.props.history}
+            updateSearchTerm={searchTerm => this.setState({ searchTerm })}
+            updatePeriod={searchPeriod => this.setState({ searchPeriod })}
+            searchTermValue={this.state.searchTerm}
+            periodValue={this.state.searchPeriod}
+            handleClick={this.handleClick}
+            resultsHeader={
+              <ResultsHeader
+                currentSearchTerm={this.state.currentSearchTerm}
+                currentPeriod={this.state.currentPeriod}
+                searchReset={this.searchReset}
+              />
+            }
           />
           <MainWrapper>
           <div
@@ -205,11 +205,11 @@ const NavButton = styled(Button)`
                   <Options>Entries</Options>
                 </SidebarLink>
               </Link>
-              <Link to="/dashboard/groups" style={{ textDecoration: 'none' }}>
+              {/* <Link to="/dashboard/groups" style={{ textDecoration: 'none' }}>
                 <SidebarLink isActive={this.props.page === 'groups'}>
                   <Options>Group</Options>
                 </SidebarLink>
-              </Link>
+              </Link> */}
               <Link to="/dashboard/map" style={{ textDecoration: 'none' }}>
                 <SidebarLink isActive={this.props.page === 'map'}>
                   <Options>Map</Options>
@@ -244,7 +244,7 @@ const NavButton = styled(Button)`
               path={`/dashboard/writeentry`}
               render={() => {
                 return (
-                  <WriteEntryNew
+                  <WriteEntry
                     history={this.props.history}
                     reloadEntries={this.loadEntries}
                   />

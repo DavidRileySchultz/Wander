@@ -13,7 +13,7 @@ class EditGroup extends Component {
             members: [],
             memebrsToAdd: [],
             newMembers: [],
-            justAddedMember: false
+            justAddedMember: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.showJustAdded = this.showJustAdded.bind(this);
@@ -73,7 +73,7 @@ class EditGroup extends Component {
     }
 
     searchTest(term) {
-        var temrs = term.toString().trim().toLowerCase().replace(/[A-za-z0-9\s]/g, "");
+        var terms = term.toString().trim().toLowerCase().replace(/[A-za-z0-9\s]/g, "");
         var url = `api/Users/UniversalUserSearch?term=${terms}`;
         fetch(url).then(response => response.json())
             .then(jsonData => {
@@ -105,8 +105,9 @@ class EditGroup extends Component {
             overflow: "auto",
             marginBottom: "10px",
             boxShadow: "4px 4px 5px 0px rgba(0,0,0,0.41)",
-            borderRadius: "5px"
-        }
+            borderRadius: "5px",
+        };
+
         if(this.state.members !== undefined) {
             var membersAdded = this.state.members.map((member, index) => <Alert className="dismissable-item" key={member.value} onDismiss={() => this.deleteMember(index)}>{member.display}</Alert>
         } else { membersAdded = null; }

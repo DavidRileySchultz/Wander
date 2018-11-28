@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGorup, FormControl, Col, ListGroupItem, ListGroup, Row, Alert } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, ListGroupItem, ListGroup, Row, Alert } from 'react-bootstrap';
 import { SearchMembers } from './_groups/SearchMembers';
 import { Members } from './_groups/Members';
 import _ from 'lodash';
@@ -37,7 +37,7 @@ class CreateGroup extends Component {
 
     addSelectedMember(selectMember) {
         var currentMembers = this.state.members.map(a => a.value).slice();
-        var selectedExist = currentMembers.indexOf(selectedMember.value);
+        var selectedExist = currentMembers.indexOf(selectMember.value);
         if(selectedExist === -1) {
             var editableMembers = this.state.members.slice();
             editableMembers.push(selectMember);
@@ -72,7 +72,7 @@ class CreateGroup extends Component {
         var url = `api/Users/UniversalUserSearch?term=${terms}`;
         fetch(url).then(response => response.json())
             .then(jsonData => {
-                var membersToSelect = json.Data.map(member => { return { value: user_id, display: `${uid.email}` } });
+                var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
                 this.setState({ membersToAdd: membersToSelect });
             })
             .catch(error => console.log(error));
@@ -150,4 +150,4 @@ class CreateGroup extends Component {
     }
 }
 
-export default CreateGroup;
+//export default CreateGroup;
