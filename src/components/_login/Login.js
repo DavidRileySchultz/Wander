@@ -37,10 +37,6 @@ const AuthButton = styled.button`
   width: 100%;
 `;
 
-const GenText = styled.p`
-  font-family: 'Roboto', sans-serif;
-  margin: 0.1em;
-`;
 
 class Login extends Component {
     constructor() {

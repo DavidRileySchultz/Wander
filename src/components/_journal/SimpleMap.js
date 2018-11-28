@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../../_config/config.js';
 import { Button } from 'semantic-ui-react';
-import EntryPreview from './EntryPreview';
 import styled from 'styled-components';
 
 const FontAwesome = require('react-fontawesome')
@@ -19,21 +18,21 @@ transform: translate(-25%, -100%);
 border-radius: 2px;
 display:flex;
 flex-direction:column;
-`
+`;
 
 const MapPageWrapper = styled.div`
    width: 100%; 
     height: 100%
-`
+`;
 
 const MapWrapper = styled.div`
     width: 100%; 
     height: 60%
-`
+`;
 
 const Slider = styled.div`
 
-`
+`;
 
 const displayDate = timeStamp => {
     let newDateArray = timeStamp.split('T');

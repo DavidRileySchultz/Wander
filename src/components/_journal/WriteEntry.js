@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import api from '../../api.js'
 import auth from '../../auth.js';
-import { Grid, Segment, Header, Button } from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
-import {Form,  Input } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from './PickImage';
-import firebase from '../../firebase.js';
+import { firebase } from '../../firebase.js';
 import styled from 'styled-components';
 
-const FontAwesome = require('react-fontawesome');
 const { currentUser } = firebase.auth();
 
 const Title = styled.h1`
@@ -20,15 +18,6 @@ const Title = styled.h1`
   font-family: 'Sue Ellen Francisco', cursive;
   color: #7e7c88;
   padding-bottom: 0.2em;
-`;
-
-const CreateButton = styled(Button)`
-  && {
-    background-color: #7e7c88;
-    color: rgb(246, 244, 244);
-    padding: 3px 9px;
-    margin-top: 7%;
-    }
 `;
 
 const PageWrapper = styled.div`
@@ -114,8 +103,9 @@ class WriteEntry extends Component {
           entryDataObj.lat = object.lat;
           entryDataObj.lng = object.lng;
         });
-
+       
         const p2 = entryPhoto.userUploaded
+         
           ? (console.log(
               'User chose to upload photo. Uploadng to Firebase:',
               entryPhoto
@@ -210,6 +200,8 @@ class WriteEntry extends Component {
               </AnswerWrapper>
             </ContentWrapper>
             <Button onClick={this.handleSubmit}>
+            {/* <Button onClick={firebase.database().ref(`entries`)
+            .update({ sample: 'hi' })}> */}
                   {this.state.loadingWrite ? 'Uploading...' : 'Submit'}
             </Button>
             </MainContent>

@@ -5,13 +5,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
-const CreateButton = styled(Button)`
-&& {
-background-color: #7e7c88;
-color: rgb(246, 244, 244);
-}
-`;
-
 const ButtonPosition = styled(Card.Content)`
 &&{
 padding: 6rem 0 3rem 
@@ -48,7 +41,7 @@ class DisplayEntries extends Component {
                     <div />
                     <div className="card-content">
                         <ButtonPosition extra>
-                        <CreateButton size="massive" as={Link} to='/dashboard/writeentry'> + </CreateButton>
+                        <Button size="massive" as={Link} to='/dashboard/writeentry'> + </Button>
                         </ButtonPosition>
                         <Card.Header>
                             Create a new entry! 
@@ -59,7 +52,7 @@ class DisplayEntries extends Component {
                     this.props.entries.map(this.displayEntryPreview) :
                     null}
             </CardWrapper>
-                <h2>Find Flight Prices!</h2>
+                <h3>Search For Flight Prices!</h3>
                 <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 
             </div>
 

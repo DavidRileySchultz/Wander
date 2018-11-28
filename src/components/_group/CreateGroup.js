@@ -29,7 +29,7 @@ class CreateGroup extends Component {
             const groupObj = {
                 name: this.state.name,
                 members: members,
-                user_id: user_id,
+                uid: uid,
             };
             //need syntax to save the members to a groupID in firebase
         }
@@ -83,7 +83,6 @@ class CreateGroup extends Component {
         const memberSearch = _.debounce((term) => { this.searchTest(term) }, 650);
         const addMember = ((selectedMember) => { this.addSelectedMember(selectedMember) });
         const style = {
-            backgroundColor: "orange",
             height: "85vh",
         };
         const membersBox = {

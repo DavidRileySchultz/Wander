@@ -8,6 +8,19 @@ const config = {
     storageBucket: "wander-d271d.appspot.com",
     messagingSenderId: "93575872728"
   };
-  firebase.initializeApp(config);
 
-  export default firebase;
+
+  if(!firebase.apps.length){
+    firebase.initializeApp(config);
+  }
+
+  firebase.auth().onAuthStateChanged(function(user){
+    if (user){
+      console.log('logged in')
+    } else {
+      console.log('not logged in')
+    }
+  });
+
+  
+  export { firebase };

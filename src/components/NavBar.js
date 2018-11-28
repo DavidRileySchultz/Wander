@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import auth from '../auth.js';
 import { Menu, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-const FontAwesome = require('react-fontawesome');
+
 
 const Form = styled.form`
   position: relative;
@@ -44,13 +43,6 @@ const NavContent = styled.div`
   flex: 1;
 `;
 
-const SearchButton = styled.button`
-  margin: 0px 6px;
-  border-radius: 6px;
-  padding: 8px 10px;
-  background-color: #7e7c88;
-  color: rgb(246, 244, 244);
-`;
 
 const Title = styled.div`
 font-family: 'Sue Ellen Francisco', cursive;

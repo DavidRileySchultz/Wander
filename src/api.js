@@ -3,10 +3,10 @@ import superagent from 'superagent';
 
 
 class Api {
-    createAccount = (firstName, lastName, email, password) => {
+    createAccount = (email, password) => {
         return superagent
             .post(`${apiHost}/api/auth/create-account`)
-            .send({ firstName, lastName, email, password })
+            .send({ email, password })
     }
 
     requestUserObject = (token) => {
