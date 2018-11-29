@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import history from '../../history';
+import { connect } from 'react-redux';
+
 
 class CreateTrip extends Component {
 
