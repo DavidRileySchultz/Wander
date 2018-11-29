@@ -22,5 +22,6 @@ const config = {
     }
   });
 
+  const firebaseAuth = firebase.auth();
   
-  export { firebase };
+  export { firebase, firebaseAuth };

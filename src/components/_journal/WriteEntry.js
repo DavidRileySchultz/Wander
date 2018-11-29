@@ -5,10 +5,9 @@ import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from './PickImage';
-import { firebase } from '../../firebase.js';
+import { firebase, firebaseAuth } from '../../firebase.js';
 import styled from 'styled-components';
 
-const { currentUser } = firebase.auth();
 
 const Title = styled.h1`
   display: flex;
@@ -93,6 +92,7 @@ class WriteEntry extends Component {
         event.preventDefault();    
         console.log('submitting form.');
         var entryPhoto = this.state.chosenPhoto;
+        var entryPhotoName = entryPhoto.name.replace(".jpg", "");
         var entryDataObj = {
           title: this.state.title,
           content: this.state.content,
@@ -110,14 +110,14 @@ class WriteEntry extends Component {
               'User chose to upload photo. Uploadng to Firebase:',
               entryPhoto
             ),
+            console.log(firebaseAuth.currentUser.uid),
             this.setState({ loadingWrite: true }),
-            firebase
-              .child(
-                `user_uploaded_photos/${firebase.database().ref(`/users/entries/${currentUser.uid}`)}/${
+            firebase.database().ref(
+                `/users/entries/${firebaseAuth.currentUser.uid}/${
                   this.state.title
-                }/${entryPhoto.name}`
+                }/${entryPhotoName}`
               )
-              .put(entryPhoto)
+              .update(entryPhoto)
               .then(snapshot => {
                 entryDataObj.full_image_url = snapshot.downloadURL;
                 entryDataObj.thumbnail_image_url = snapshot.downloadURL;
@@ -127,10 +127,21 @@ class WriteEntry extends Component {
 
             (console.log(
               'user chose an unSplash image, image urls are:',
-              entryPhoto.urls
+              entryPhotoName.urls
             ),
-            (entryDataObj.full_image_url = entryPhoto.urls.regular),
-            (entryDataObj.thumbnail_image_url = entryPhoto.urls.thumb));
+            console.log(firebaseAuth.currentUser.uid),
+            this.setState({ loadingWrite: true }),
+            firebase.database().ref(
+                `/users/entries/${firebaseAuth.currentUser.uid}/${
+                  this.state.title
+                }/${entryPhotoName}`
+              )
+              .update(entryPhoto)
+              .then(snapshot => {
+                entryDataObj.full_image_url = snapshot.downloadURL;
+                entryDataObj.thumbnail_image_url = snapshot.downloadURL;
+              }))
+            
 
             Promise.all([p1, p2])
             .then(() => {

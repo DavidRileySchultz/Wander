@@ -38,12 +38,7 @@ class PickImage extends Component {
     }
     
     setSearchQuery = (rating) => {
-        let searchQuery =
-            rating >= 9 ? "color" :
-                rating >= 7 ? "horizon" :
-                    rating >= 5 ? "calm" :
-                        rating >= 3 ? 'rain' :
-                            rating >= 0 ? "dark" : "walrus";
+        let searchQuery = "awesome";
         return searchQuery;
     }    
 
@@ -65,7 +60,7 @@ class PickImage extends Component {
                     }}
                     src={this.props.chosenPhoto.urls.regular}
                     
-                    alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo":this.props.chosenPhoto.links.html} />
+                    alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo" : this.props.chosenPhoto.links.html} />
                    <Button onClick={this.props.deleteChosenPhoto}
                    style={{position:"absolute",bottom:10,right:10}}>X</Button>
                     </div>

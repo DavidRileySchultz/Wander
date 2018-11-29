@@ -30,7 +30,7 @@ class DisplayEntries extends Component {
     }
     
     displayEntryPreview = (entryObj) => {
-        return (<EntryPreview data={entryObj} key={entryObj.id} />)
+        return (<EntryPreview data={entryObj} key={entryObj} />)
     }
 
     render() {
