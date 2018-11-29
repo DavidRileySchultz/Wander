@@ -113,7 +113,7 @@ class WriteEntry extends Component {
             this.setState({ loadingWrite: true }),
             firebase
               .child(
-                `user_uploaded_photos/${firebase.database().ref(`/users/${currentUser.uid}`)}/${
+                `user_uploaded_photos/${firebase.database().ref(`/users/entries/${currentUser.uid}`)}/${
                   this.state.title
                 }/${entryPhoto.name}`
               )
@@ -200,7 +200,7 @@ class WriteEntry extends Component {
               </AnswerWrapper>
             </ContentWrapper>
             <Button onClick={this.handleSubmit}>
-            {/* <Button onClick={firebase.database().ref(`entries`)
+            {/* <Button onClick={firebase.database().ref(`entries/${currentUser.uid}`)
             .update({ sample: 'hi' })}> */}
                   {this.state.loadingWrite ? 'Uploading...' : 'Submit'}
             </Button>
