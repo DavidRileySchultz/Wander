@@ -119,8 +119,8 @@ class WriteEntry extends Component {
               )
               .update(entryPhoto)
               .then(snapshot => {
-                entryDataObj.full_image_url = snapshot.downloadURL;
-                entryDataObj.thumbnail_image_url = snapshot.downloadURL;
+                entryDataObj.full_image_url = snapshot;
+                entryDataObj.thumbnail_image_url = snapshot;
               }))
 
           : 

@@ -29,8 +29,17 @@ class DisplayEntries extends Component {
         document.body.appendChild(skyScanner);
     }
     
-    displayEntryPreview = (entryObj) => {
-        return (<EntryPreview data={entryObj} key={entryObj} />)
+    displayEntryPreview() {
+        const entryList = [];
+        for(const item in this.props.entries){
+            if (item){
+                entryList.push(
+                    <DisplayEntries key={item} entry={this.props.entries.uid[item]} id={item} editable={this.props.editable} />
+                )
+                console.log(entryList);
+            }
+        }
+        return entryList;
     }
 
     render() {
@@ -48,9 +57,7 @@ class DisplayEntries extends Component {
                         </Card.Header>
                     </div>
                 </Card>
-                {this.props.entries.length ?
-                    this.props.entries.map(this.displayEntryPreview) :
-                    null}
+                {this.displayEntryPreview()}
             </CardWrapper>
                 <h3>Search For Flight Prices!</h3>
                 <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 
