@@ -1,5 +1,5 @@
 import api from './api.js';
-import firebase from 'firebase';
+import { firebase, firebaseAuth} from './firebase';
 
 export default {
 
@@ -15,6 +15,7 @@ export default {
     },
 
     getToken() {
+        console.log(firebase.token, 'token ==[=>')
         return firebase.token;
     },
 

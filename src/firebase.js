@@ -13,9 +13,11 @@ const config = {
   if(!firebase.apps.length){
     firebase.initializeApp(config);
   }
-
+ let userData = { uid: ''};
   firebase.auth().onAuthStateChanged(function(user){
     if (user){
+      userData = user;
+      console.log(user.uid, '========>')
       console.log('logged in')
     } else {
       console.log('not logged in')
@@ -23,5 +25,7 @@ const config = {
   });
 
   const firebaseAuth = firebase.auth();
+
+  const database = firebase.database();
   
-  export { firebase, firebaseAuth };
+  export { firebase, firebaseAuth, userData };

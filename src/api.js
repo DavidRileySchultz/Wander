@@ -1,73 +1,71 @@
 import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
+import {firebase} from './firebase';
 
+const database = firebase.database();
 
 class Api {
     createAccount = (email, password) => {
         return superagent
-            .post(`${apiHost}/api/auth/create-account`)
+            .post(`/api/auth/create-account`)
             .send({ email, password })
     }
 
     requestUserObject = (token) => {
         return superagent
-            .get(`${apiHost}/api/auth/me`)
+            .get(`/api/auth/me`)
             .set('authorization', token)
     }
 
     requestLogin = (email, password) => {
         return superagent
-            .post(`${apiHost}/api/auth/login`)
+            .post(`/api/auth/login`)
             .send({ email, password })   
     }
 
-    requestEntries = (token, days, searchTerm) => {
-        console.log("requesting entries in last", days, "days.",
-            `using searchterm ${searchTerm}`)
-        return superagent
-            .get(`${apiHost}/api/entries`)
-            .set({
-                'authorization': token,
-                'days': days,
-                'searchTerm': searchTerm
-            })
+    requestEntries = (userId, days, searchTerm) => {
+       return  firebase.database().ref('users/entries').once('value')
+
     }
 
     requestSingleEntry = (id, token) => {
         return superagent
-            .get(`${apiHost}/api/entries/${id}`)
+            .get(`/api/entries/${id}`)
             .set('authorization', token)
     }
 
-    createSingleEntry = (entryDataObj, token) => {
-        return superagent
-            .post(`${apiHost}/api/entries`)
-            .set('authorization', token)
-            .send(entryDataObj)
+    createSingleEntry = (entryDataObj) => {
+        // return superagent
+        //     .post(`/api/entries`)
+        //     .set('authorization', token)
+        //     .send(entryDataObj)
+        firebase.database().ref('users/entries').set({
+            entryDataObj: entryDataObj
+        });
     }
 
     editSingleEntry = (entryDataObj, token, entry_id) => {
         return superagent
-            .post(`${apiHost}/api/entries/${entry_id}`)
+            .post(`/api/entries/${entry_id}`)
             .set('authorization', token)
             .send(entryDataObj)
     }
 
     createSingleItinerary = (itineraryDataObj, token) => {
         return superagent
-            .post(`${apiHost}/api/itineraries`)
+            .post(`/api/itineraries`)
             .set('authorization', token)
             .send(itineraryDataObj)
     }
 
     requestSingleItinerary = (id, token) => {
         return superagent   
-            .get(`${apiHost}/api/itineraries${id}`)
+            .get(`/api/itineraries${id}`)
             .set('authorization', token)
     }
     editSingleItinerary = (itineraryDataObj, token, itinerary_id) => {
         return superagent
-            .post(`${apiHost}/api/intineraries/${itinerary_id}`)
+            .post(`/api/intineraries/${itinerary_id}`)
             .set('authorization', token)
             .send(itineraryDataObj)
     }
@@ -86,21 +84,21 @@ class Api {
 
     requestLogout = (token) => {
         return superagent
-            .delete(`${apiHost}/api/auth/logout`)
+            .delete(`/api/auth/logout`)
             .set('authorization', token)
             .then(response => console.log(response))
     }
 
     requestDeleteEntry = (id, token) => {
         return superagent
-            .delete(`${apiHost}/api/entries/${id}`)
+            .delete(`/api/entries/${id}`)
             .set('authorization', token)
             .then(reply => console.log('working', reply))
     }
 
     requestDeleteItinerary = (id, token) => {
         return superagent
-            .delete(`${apiHost}/api/itineraries/${id}`)
+            .delete(`/api/itineraries/${id}`)
             .set('authorization', token)
             .then(reply => console.log('working', reply))
     }

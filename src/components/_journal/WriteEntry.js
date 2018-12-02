@@ -110,11 +110,12 @@ class WriteEntry extends Component {
               'User chose to upload photo. Uploadng to Firebase:',
               entryPhoto
             ),
+            console.log(entryDataObj),
             console.log(firebaseAuth.currentUser.uid),
             this.setState({ loadingWrite: true }),
             firebase.database().ref(
                 `/users/entries/${firebaseAuth.currentUser.uid}/${
-                  this.state.title
+                  this.state.entryDataObj
                 }/${entryPhotoName}`
               )
               .update(entryPhoto)
@@ -211,9 +212,7 @@ class WriteEntry extends Component {
               </AnswerWrapper>
             </ContentWrapper>
             <Button onClick={this.handleSubmit}>
-            {/* <Button onClick={firebase.database().ref(`entries/${currentUser.uid}`)
-            .update({ sample: 'hi' })}> */}
-                  {this.state.loadingWrite ? 'Uploading...' : 'Submit'}
+              {this.state.loadingWrite ? 'Uploading...' : 'Submit'}
             </Button>
             </MainContent>
             </form>

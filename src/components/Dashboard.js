@@ -10,7 +10,7 @@ import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './_journal/ReadEntry';
 import EditEntry from './_journal/EditEntry';
-
+import { userId } from '../firebase.js'
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -129,7 +129,6 @@ const ResultsHeader = props => {
     constructor() {
       super();
       this.state = {
-        userObj: {},
         entries: [],
         geotaggedEntries: [],
         searchPeriod: '',
@@ -141,25 +140,15 @@ const ResultsHeader = props => {
   
     componentDidMount() {
       this.loadEntries();
-      const userObj = auth.getUser();
-      console.log('userobj', userObj);
-      this.setState({ userObj });
     }
   
     loadEntries = () => {
       api
-        .requestEntries(
-          auth.getToken(),
-          this.state.searchPeriod,
-          this.state.searchTerm,
-        )
-        .then(reply =>
-          this.setState({
-            entries: reply.body,
-            geotaggedEntries: reply.body.filter(entry => !!entry.lat),
-            currentPeriod: this.state.searchPeriod,
-            currentSearchTerm:this.state.searchTerm
-          })
+        .requestEntries()
+        .then(reply => {
+          console.log(reply.val(), 'all entries!!!!')
+
+        }
         );
     };
   

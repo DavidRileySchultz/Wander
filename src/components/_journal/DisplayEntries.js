@@ -28,19 +28,23 @@ class DisplayEntries extends Component {
         skyScanner.async = true;
         document.body.appendChild(skyScanner);
     }
-    
-    displayEntryPreview() {
-        const entryList = [];
-        for(const item in this.props.entries){
-            if (item){
-                entryList.push(
-                    <DisplayEntries key={item} entry={this.props.entries.uid[item]} id={item} editable={this.props.editable} />
-                )
-                console.log(entryList);
-            }
-        }
-        return entryList;
+  
+    displayEntryPreview = (entryDataObj) => {
+        return (<EntryPreview data={entryDataObj} key={entryDataObj.title} />)
     }
+
+    // displayEntryPreview() {
+    //     const entryList = [];
+    //     for(const item in this.props.entries){
+    //         if (item){
+    //             entryList.push(
+    //                 <EntryPreview key={item} entry={this.props.entries.uid[item]} id={item} editable={this.props.editable} />
+    //             )
+    //             console.log(entryList);
+    //         }
+    //     }
+    //     return entryList;
+    // }
 
     render() {
         return (
@@ -57,7 +61,10 @@ class DisplayEntries extends Component {
                         </Card.Header>
                     </div>
                 </Card>
-                {this.displayEntryPreview()}
+                {this.props.entries.length ?
+                    this.props.entries.map(this.displayEntryPreview) :
+                    null}
+                {/* {this.displayEntryPreview()} */}
             </CardWrapper>
                 <h3>Search For Flight Prices!</h3>
                 <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 

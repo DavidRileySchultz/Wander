@@ -60,6 +60,7 @@ class CreateAccount extends Component {
         })
         .catch((error) => {
           this.setState({ error: error})
+          this.props.history.push("/landing")
         })
     }
     
