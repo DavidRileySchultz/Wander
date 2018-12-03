@@ -29,22 +29,22 @@ class DisplayEntries extends Component {
         document.body.appendChild(skyScanner);
     }
   
-    displayEntryPreview = (entryDataObj) => {
-        return (<EntryPreview data={entryDataObj} key={entryDataObj.title} />)
-    }
-
-    // displayEntryPreview() {
-    //     const entryList = [];
-    //     for(const item in this.props.entries){
-    //         if (item){
-    //             entryList.push(
-    //                 <EntryPreview key={item} entry={this.props.entries.uid[item]} id={item} editable={this.props.editable} />
-    //             )
-    //             console.log(entryList);
-    //         }
-    //     }
-    //     return entryList;
+    // displayEntryPreview = (entryDataObj) => {
+    //     return (<EntryPreview data={entryDataObj} key={entryDataObj.key} />)
     // }
+
+    displayEntryPreview() {
+        const entryList = [];
+        for(const id in this.props.entries){
+            if (id){
+                entryList.push(
+                    <EntryPreview key={id} entry={this.props.entries.uid[id]} id={id} editable={this.props.editable} />
+                )
+                console.log(entryList);
+            }
+        }
+        return entryList;
+    }
 
     render() {
         return (

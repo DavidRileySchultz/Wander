@@ -13,7 +13,7 @@ class PickImage extends Component {
 
     unsplashGet = (e) => {
         e.preventDefault()
-        api.getUnsplashMultiple(this.setSearchQuery(this.props.mood),this.state.count).then(
+        api.getUnsplashMultiple(this.setSearchQuery(this.props.searchQuery),this.state.count).then(
             imageResults => {
                 console.log("returned imageResults:", imageResults.body)
                 this.setState({ photoChoicesArray: imageResults.body })
@@ -27,6 +27,7 @@ class PickImage extends Component {
 
     getUploadedFile = (e) => {
         const userFile=e.target.files[0]
+        console.log("User file: ", userFile)
         userFile.urls={regular:URL.createObjectURL(userFile),thumb:URL.createObjectURL(userFile)}
         userFile.userUploaded=true
         console.log("we added local urls to the userFile:",userFile.urls)        

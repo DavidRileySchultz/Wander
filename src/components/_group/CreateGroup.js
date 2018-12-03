@@ -24,14 +24,14 @@ class CreateGroup extends Component {
             this.setState({ errorMessage: "Can't create group without a name!" });
         }
         else {
-            var user_id = firebase.auth();
+            var uid = firebase.auth();
             var members = this.state.members.map(a => Number(a.value));
             const groupObj = {
                 name: this.state.name,
                 members: members,
                 uid: uid,
             };
-            //need syntax to save the members to a groupID in firebase
+            firebase.database.ref(`/groups/users/`)
         }
     }
 
@@ -66,21 +66,36 @@ class CreateGroup extends Component {
             [name]: value
         });
     }
-
-    searchTest(term) {
-        var terms = term.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
-        var url = `api/Users/UniversalUserSearch?term=${terms}`;
-        fetch(url).then(response => response.json())
-            .then(jsonData => {
-                var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
-                this.setState({ membersToAdd: membersToSelect });
+    
+    addFriend = event => {
+        event.preventDefault()
+            if(this.state.email) {
+                this.setState({friendEmails: [...this.state.emails, this.state.email
+                ]})
+            this.props.getUsers({
+                email: this.state.email,
+                id: Number(this.props.match.params.tripId),
+                organizer: false,
+                joined: false
             })
-            .catch(error => console.log(error));
+            }
+        this.setState({email: ''})
     }
+
+    // searchTest(term) {
+    //     var terms = term.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
+    //     var url = `api/Users/UniversalUserSearch?term=${terms}`;
+    //     fetch(url).then(response => response.json())
+    //         .then(jsonData => {
+    //             var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
+    //             this.setState({ membersToAdd: membersToSelect });
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     render() {
         const membersAdded = this.state.members.map((member) => <ListGroupItem key={user_id.value}>{user_id.display}</ListGroupItem>)
-        const memberSearch = _.debounce((term) => { this.searchTest(term) }, 650);
+        const memberSearch = _.debounce((term) => { this.addFriend(term) }, 650);
         const addMember = ((selectedMember) => { this.addSelectedMember(selectedMember) });
         const style = {
             height: "85vh",
@@ -149,4 +164,4 @@ class CreateGroup extends Component {
     }
 }
 
-//export default CreateGroup;
+// export default CreateGroup;

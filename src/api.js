@@ -1,6 +1,6 @@
 import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
-import {firebase} from './firebase';
+import {firebase, firebaseAuth} from './firebase';
 
 const database = firebase.database();
 
@@ -39,7 +39,7 @@ class Api {
         //     .post(`/api/entries`)
         //     .set('authorization', token)
         //     .send(entryDataObj)
-        firebase.database().ref('users/entries').set({
+        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}`).set({
             entryDataObj: entryDataObj
         });
     }
@@ -104,9 +104,11 @@ class Api {
     }
 
     requestLatLong = (address) => {
+        console.log("Address: ", address)
         return superagent
             .post(`${MAPS_API_URL}address=${address}&key=${MAPS_API_KEY}`)
             .then(data => {
+                console.log("Data: ", data)
                 const latLong =
                     {
                         lat: data.body.results[0].geometry.location.lat,

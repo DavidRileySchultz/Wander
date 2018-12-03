@@ -92,18 +92,25 @@ class WriteEntry extends Component {
         event.preventDefault();    
         console.log('submitting form.');
         var entryPhoto = this.state.chosenPhoto;
+        console.log("Entry Photo: ", entryPhoto)
         var entryPhotoName = entryPhoto.name.replace(".jpg", "");
+        var storageRef = firebase.storage().ref()
         var entryDataObj = {
           title: this.state.title,
           content: this.state.content,
-          place:this.state.place
-        };
+          place: this.state.place,
+        }
 
         const p1 = api.requestLatLong(this.state.place).then(object => {
           entryDataObj.lat = object.lat;
           entryDataObj.lng = object.lng;
         });
-       
+        
+        const imageRef = firebase.storage().ref(
+          `/users/entries/${firebaseAuth.currentUser.uid}/${
+            this.state.title
+          }/${entryPhotoName}`
+        )
         const p2 = entryPhoto.userUploaded
          
           ? (console.log(
@@ -113,16 +120,17 @@ class WriteEntry extends Component {
             console.log(entryDataObj),
             console.log(firebaseAuth.currentUser.uid),
             this.setState({ loadingWrite: true }),
-            firebase.database().ref(
-                `/users/entries/${firebaseAuth.currentUser.uid}/${
-                  this.state.entryDataObj
-                }/${entryPhotoName}`
-              )
-              .update(entryPhoto)
+            imageRef
+              .put(entryPhoto)
               .then(snapshot => {
-                entryDataObj.full_image_url = snapshot;
-                entryDataObj.thumbnail_image_url = snapshot;
-              }))
+                console.log("Snap shot: ", snapshot)
+                return imageRef.getDownloadURL().then((imageURL) => {
+                  console.log("Gotten url ", imageURL)
+                  entryDataObj.full_image_url = imageURL
+                  entryDataObj.thumbnail_image_url = imageURL
+                })
+              })
+            )
 
           : 
 
@@ -132,23 +140,22 @@ class WriteEntry extends Component {
             ),
             console.log(firebaseAuth.currentUser.uid),
             this.setState({ loadingWrite: true }),
-            firebase.database().ref(
-                `/users/entries/${firebaseAuth.currentUser.uid}/${
-                  this.state.title
-                }/${entryPhotoName}`
-              )
-              .update(entryPhoto)
+            imageRef
+              .put(entryPhoto)
               .then(snapshot => {
-                entryDataObj.full_image_url = snapshot.downloadURL;
-                entryDataObj.thumbnail_image_url = snapshot.downloadURL;
-              }))
+                return imageRef.getDownloadURL().then((imageURL) => {
+                  entryDataObj.full_image_url = imageURL
+                  entryDataObj.thumbnail_image_url = imageURL
+                })
+              })
+            )
             
 
             Promise.all([p1, p2])
             .then(() => {
               console.log('creating an entry with obj:', entryDataObj);
               api
-                .createSingleEntry(entryDataObj, auth.getToken())
+                .createSingleEntry(entryDataObj)
                 .then(results => console.log(results));
             })
             .then(() => this.props.reloadEntries())

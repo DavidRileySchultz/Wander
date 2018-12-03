@@ -8,7 +8,7 @@ import Dashboard from './components/Dashboard';
 import WriteEntry from './components/_journal/WriteEntry';
 import ReadEntry from './components/_journal/ReadEntry';
 import SimpleMap from './components/_journal/SimpleMap';
-//import CreateGroup from './components/_group/CreateGroup';
+// import CreateGroup from './components/_group/CreateGroup';
 
 class App extends Component {
   render() {
