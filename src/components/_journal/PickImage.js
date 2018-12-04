@@ -15,7 +15,14 @@ class PickImage extends Component {
         e.preventDefault()
         api.getUnsplashMultiple(this.setSearchQuery(this.props.searchQuery),this.state.count).then(
             imageResults => {
+                let images = []
                 console.log("returned imageResults:", imageResults.body)
+                imageResults.body.forEach((image, index) => {
+                    let imageURL = image.urls.regular
+                    api.requestGetImage(imageURL).then((image) => {
+                        imageResults.body[index].file = image
+                    })
+                });
                 this.setState({ photoChoicesArray: imageResults.body })
             }
         )
@@ -74,7 +81,7 @@ class PickImage extends Component {
                         {this.state.photoChoicesArray.map(
                             (photo, index) =>
                                 <button key={index} style={{"maxHeight": "100%", border:'none', 'marginBottom': '1rem' }}
-                                    onClick={() => this.props.selectImage(photo)}>
+                                    onClick={() => this.props.selectImage(photo.file)}>
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />
                                 </button>)}

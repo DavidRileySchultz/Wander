@@ -18,6 +18,7 @@ const config = {
     if (user){
       userData = user;
       console.log(user.uid, '========>')
+      console.log(firebaseAuth.currentUser)
       console.log('logged in')
     } else {
       console.log('not logged in')

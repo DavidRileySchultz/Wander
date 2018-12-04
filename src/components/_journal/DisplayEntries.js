@@ -30,15 +30,17 @@ class DisplayEntries extends Component {
     }
   
     // displayEntryPreview = (entryDataObj) => {
-    //     return (<EntryPreview data={entryDataObj} key={entryDataObj.key} />)
+    //     return (<EntryPreview data={entryDataObj} key={entryDataObj.id} />)
     // }
 
     displayEntryPreview() {
+        console.log("Display Entry called", this.props.entries)
         const entryList = [];
-        for(const id in this.props.entries){
+        for(const id in this.props.entires){
+            console.log(id, "id")
             if (id){
                 entryList.push(
-                    <EntryPreview key={id} entry={this.props.entries.uid[id]} id={id} editable={this.props.editable} />
+                    <EntryPreview key={id} entry={this.props.entries[id].entryDataObj} id={id} editable={this.props.editable} />
                 )
                 console.log(entryList);
             }
@@ -61,10 +63,13 @@ class DisplayEntries extends Component {
                         </Card.Header>
                     </div>
                 </Card>
-                {this.props.entries.length ?
-                    this.props.entries.map(this.displayEntryPreview) :
+                {true ?
+                    Object.keys(this.props.entries).map((id, index) => 
+                    <EntryPreview key={id} entry={this.props.entries[id].entryDataObj} id={id} editable={this.props.editable} />
+                    )
+                 :
                     null}
-                {/* {this.displayEntryPreview()} */}
+                
             </CardWrapper>
                 <h3>Search For Flight Prices!</h3>
                 <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 
@@ -75,3 +80,4 @@ class DisplayEntries extends Component {
     }
 }
 export default DisplayEntries;
+//this.props.entries.length

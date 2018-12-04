@@ -147,7 +147,7 @@ const ResultsHeader = props => {
         .requestEntries()
         .then(reply => {
           console.log(reply.val(), 'all entries!!!!')
-
+          this.setState({ entries: reply.val()})
         }
         );
     };

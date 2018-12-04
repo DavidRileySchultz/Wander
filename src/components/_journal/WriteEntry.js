@@ -93,7 +93,7 @@ class WriteEntry extends Component {
         console.log('submitting form.');
         var entryPhoto = this.state.chosenPhoto;
         console.log("Entry Photo: ", entryPhoto)
-        var entryPhotoName = entryPhoto.name.replace(".jpg", "");
+        //var entryPhotoName = entryPhoto.title.replace(".jpg", "");
         var storageRef = firebase.storage().ref()
         var entryDataObj = {
           title: this.state.title,
@@ -109,7 +109,7 @@ class WriteEntry extends Component {
         const imageRef = firebase.storage().ref(
           `/users/entries/${firebaseAuth.currentUser.uid}/${
             this.state.title
-          }/${entryPhotoName}`
+          }/${entryPhoto}`
         )
         const p2 = entryPhoto.userUploaded
          
@@ -136,7 +136,7 @@ class WriteEntry extends Component {
 
             (console.log(
               'user chose an unSplash image, image urls are:',
-              entryPhotoName.urls
+              entryPhoto.urls
             ),
             console.log(firebaseAuth.currentUser.uid),
             this.setState({ loadingWrite: true }),

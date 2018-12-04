@@ -25,6 +25,13 @@ export default {
         : null
     },
 
+    getCurrentUser() {
+        console.log("auth auth", firebase.auth())
+        firebase.auth().onAuthStateChanged.then((user) => {
+            return user
+        })
+    },
+
     logOut(token) {
        return api.requestLogout(token)
             .then(() => {

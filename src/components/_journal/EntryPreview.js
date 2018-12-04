@@ -26,20 +26,21 @@ class EntryPreview extends Component {
   }
 
   render() {
+    console.log("This is an entry")
+    console.log(this.props.entry)
     return (
       <Grid.Column>
         {this.state.imageDeleted ? <Card.Header>Entry successfully deleted. </Card.Header> :
           <Card>
-            <Link to={`/dashboard/readentry/${this.props.data.id}`}>
-              <Image src={this.props.data.thumbnail_image_url} height='226px' width='290px' />
+            <Link to={`/dashboard/readentry/${this.props.id}`}>
+              <Image src={this.props.entry.thumbnail_image_url} height='226px' width='290px' />
             </Link>
             <Card.Content>
               <Card.Header>
-                {this.props.data.title}
+                {this.props.entry.title}
               </Card.Header>
               <Card.Meta>
                 <span className='date'>
-                  {this.displayDate(this.props.data.createdAt)}
                 </span>
               </Card.Meta>
               <Card.Content extra>

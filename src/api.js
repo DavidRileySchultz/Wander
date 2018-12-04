@@ -1,6 +1,7 @@
 import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
-import {firebase, firebaseAuth} from './firebase';
+import auth from './auth';
+import {firebase, firebaseAuth, userData} from './firebase';
 
 const database = firebase.database();
 
@@ -24,8 +25,8 @@ class Api {
     }
 
     requestEntries = (userId, days, searchTerm) => {
-       return  firebase.database().ref('users/entries').once('value')
 
+       return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1`).once('value')
     }
 
     requestSingleEntry = (id, token) => {
@@ -35,11 +36,8 @@ class Api {
     }
 
     createSingleEntry = (entryDataObj) => {
-        // return superagent
-        //     .post(`/api/entries`)
-        //     .set('authorization', token)
-        //     .send(entryDataObj)
-        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}`).set({
+        console.log("cURRENT", firebaseAuth.currentUser)
+        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}`).push({
             entryDataObj: entryDataObj
         });
     }
@@ -117,6 +115,23 @@ class Api {
                 return latLong
             }
         )
+    }
+    requestGetImage = (imageURL) => {
+            return fetch(imageURL)
+            .then(response => {
+                console.log("Response: ", response)
+                return response.blob()
+            })
+            .then((image) => {
+                image.lastModifiedDate = new Date()
+                image.name = `image${Math.random()}.jpg`
+                image.urls={regular:URL.createObjectURL(image),thumb:URL.createObjectURL(image)}
+                image.links = {
+                    html: imageURL
+                }
+                image.userUploaded=false
+                return image
+            })
     }
 }
 
