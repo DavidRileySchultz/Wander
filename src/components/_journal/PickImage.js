@@ -15,7 +15,6 @@ class PickImage extends Component {
         e.preventDefault()
         api.getUnsplashMultiple(this.setSearchQuery(this.props.searchQuery),this.state.count).then(
             imageResults => {
-                let images = []
                 console.log("returned imageResults:", imageResults.body)
                 imageResults.body.forEach((image, index) => {
                     let imageURL = image.urls.regular

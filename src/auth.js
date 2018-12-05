@@ -1,5 +1,5 @@
 import api from './api.js';
-import { firebase, firebaseAuth} from './firebase';
+import { firebase} from './firebase';
 
 export default {
 
@@ -20,8 +20,8 @@ export default {
     },
 
     getUser() {
-        return firebase.UID ?
-         JSON.parse(firebase.UID)
+        return firebase.auth() ?
+         JSON.parse(firebase.auth())
         : null
     },
 

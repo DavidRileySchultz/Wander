@@ -1,9 +1,8 @@
-import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
+import { unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
-import auth from './auth';
-import {firebase, firebaseAuth, userData} from './firebase';
+import {firebase, firebaseAuth} from './firebase';
 
-const database = firebase.database();
+
 
 class Api {
     createAccount = (email, password) => {
@@ -24,19 +23,17 @@ class Api {
             .send({ email, password })   
     }
 
-    requestEntries = (userId, days, searchTerm) => {
-
+    requestEntries = () => {
+        console.log("Current User ====> ", firebaseAuth)
        return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1`).once('value')
     }
 
     requestSingleEntry = (id, token) => {
-        return superagent
-            .get(`/api/entries/${id}`)
-            .set('authorization', token)
+        console.log("Current Entry =====++===>>> ", `/users/entries/${id}`)
+        return firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/${id}`).once('value')
     }
 
     createSingleEntry = (entryDataObj) => {
-        console.log("cURRENT", firebaseAuth.currentUser)
         return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}`).push({
             entryDataObj: entryDataObj
         });
@@ -88,6 +85,7 @@ class Api {
     }
 
     requestDeleteEntry = (id, token) => {
+        console.log("Is deleting...")
         return superagent
             .delete(`/api/entries/${id}`)
             .set('authorization', token)

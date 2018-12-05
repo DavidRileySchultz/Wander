@@ -43,6 +43,14 @@ const NavContent = styled.div`
   flex: 1;
 `;
 
+const SearchButton = styled.button`
+margin: 0px 6px;
+border-radius: 6px;
+padding: 8px 10px;
+background-color: #7e7c88;
+color: rgb(246, 244, 244);
+`;
+
 
 const Title = styled.div`
 font-family: 'Sue Ellen Francisco', cursive;
@@ -99,7 +107,7 @@ class NavBar extends Component {
                 <NavContent isVisible={!this.state.navOpen} center>
               {this.props.resultsHeader}
             </NavContent>
-            {/* <NavContent isVisible={this.state.navOpen}>
+            <NavContent isVisible={this.state.navOpen}>
               <span style={{'padding': '0 0.5em', 'fontFamily': 'Barlow Semi Condensed'}}>in the last</span>
               <select
                 ref={r => (this.periodSelector = r)}
@@ -123,7 +131,7 @@ class NavBar extends Component {
                 <option value="">all time</option>
               </select>
               <SearchButton onClick={this.toggleSearch}>Search</SearchButton>
-            </NavContent> */}
+            </NavContent>
           </Form>
         </SearchBar>
         <Menu.Menu position="right">

@@ -26,7 +26,5 @@ const config = {
   });
 
   const firebaseAuth = firebase.auth();
-
-  const database = firebase.database();
   
   export { firebase, firebaseAuth, userData };

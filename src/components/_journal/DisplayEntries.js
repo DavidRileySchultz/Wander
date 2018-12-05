@@ -28,10 +28,6 @@ class DisplayEntries extends Component {
         skyScanner.async = true;
         document.body.appendChild(skyScanner);
     }
-  
-    // displayEntryPreview = (entryDataObj) => {
-    //     return (<EntryPreview data={entryDataObj} key={entryDataObj.id} />)
-    // }
 
     displayEntryPreview() {
         console.log("Display Entry called", this.props.entries)
@@ -49,6 +45,7 @@ class DisplayEntries extends Component {
     }
 
     render() {
+        console.log(this.props.entries, "<=======")
         return (
             <div>
             <CardWrapper>

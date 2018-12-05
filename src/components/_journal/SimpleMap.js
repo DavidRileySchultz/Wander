@@ -34,13 +34,14 @@ const Slider = styled.div`
 
 `;
 
-const displayDate = timeStamp => {
-    let newDateArray = timeStamp.split('T');
-    let justDate = newDateArray[0];
-    return justDate;
-}
+// const displayDate = timeStamp => {
+//     let newDateArray = timeStamp.split('T');
+//     let justDate = newDateArray[0];
+//     return justDate;
+// }
 
 const Pin = props => {
+    //console.log("source of trouble", props.entry)
     const pinSize = props.$hover ? '4x' : '3x';
     return (
         <div style={{
@@ -56,7 +57,7 @@ const Pin = props => {
                             src={props.entry.thumbnail_image_url} />
                         </Link>
                     <div style={{margin:"10px auto"}}><div>{props.entry.title}
-                        </div><div>{displayDate(props.entry.createdAt)}</div></div>
+                        </div></div>
                 </Preview> 
                 :
                 null
@@ -81,8 +82,9 @@ class SimpleMap extends Component {
     }
 
     componentDidMount() {
-        if (this.props.geotaggedEntries.length >0){
+        if (this.props.geotaggedEntries.length > 0){
             let entryList = this.props.geotaggedEntries
+            console.log("GEOTAGGED ", entryList)
             this.setState({
                 center:{lat:entryList[entryList.length-1].lat+0.05,lng:entryList[entryList.length-1].lng},              
                 hoveredMapPoint:entryList[entryList.length-1]
@@ -93,10 +95,11 @@ class SimpleMap extends Component {
     componentWillReceiveProps(nextProps) {
         console.log("the simplemap props are:", nextProps)
         if (nextProps.geotaggedEntries.length > 0){
-            let entryList=nextProps.geotaggedEntries
+            let entryList = nextProps.geotaggedEntries
+            console.log("Entry List", entryList)
             this.setState({ 
                 center:{lat:entryList[entryList.length-1].lat+0.05,lng:entryList[entryList.length-1].lng},           
-               hoveredMapPoint:entryList[entryList.length-1]
+                hoveredMapPoint:entryList[entryList.length-1]
             })
         }
     }
@@ -105,28 +108,28 @@ class SimpleMap extends Component {
         clearInterval(this.state.sliderStopperID)        
     }
 
-    loadDaysWithEntries = (entries) => {
-        let d = []
-        let counter = 0
-        const myFunc = entry => {
-            let date = displayDate(entry.createdAt)
+    // loadDaysWithEntries = (entries) => {
+    //     let d = []
+    //     let counter = 0
+    //     const myFunc = entry => {
+    //         let date = displayDate(entry.createdAt)
 
-            if (!d[counter]) {
-                d[counter] = { date: date, entries: [entry.id] }
-            }
+    //         if (!d[counter]) {
+    //             d[counter] = { date: date, entries: [entry.id] }
+    //         }
 
-            else if (d[counter].date === date) {
-                d[counter].entries.push(entry.id)
-            }
-            else {
-                counter++;
-                myFunc(entry)
-            }
-        }
-        entries.forEach(myFunc)
-        this.setState({ daysWhichContainEntries: d })
+    //         else if (d[counter].date === date) {
+    //             d[counter].entries.push(entry.id)
+    //         }
+    //         else {
+    //             counter++;
+    //             myFunc(entry)
+    //         }
+    //     }
+    //     entries.forEach(myFunc)
+    //     this.setState({ daysWhichContainEntries: d })
 
-    }
+    // }
 
     handleSliderChange = (e) => {
         let sliderValue = parseInt(e.target.value)
@@ -237,6 +240,7 @@ class SimpleMap extends Component {
     }
 
     renderPins = (entries) => {
+        console.log("fixed?? ", entries)
         let renderedPins =
             entries.map(entry =>
                 <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
@@ -257,7 +261,7 @@ class SimpleMap extends Component {
     }
 
     static defaultProps = {
-        center: { lat: 45.50, lng: -73.56 },
+        center: { lat: 43.03, lng: -87.91 },
         zoom: 1.5
     };
 

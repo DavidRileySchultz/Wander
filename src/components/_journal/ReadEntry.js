@@ -72,18 +72,18 @@ class ReadEntry extends Component {
       loaded: false
     }
   }
-
-  componentDidMount() {
+  
+  componentDidMount() {    
     console.log('readEntry', this.props.match.params.id)
-    api.requestSingleEntry(this.props.match.params.id, auth.getToken())
+    api.requestSingleEntry(this.props.match.params.id)
       .then(reply => {
-        console.log(reply.body)
+        console.log("reply ===>", reply.val())
         this.setState(
           {
-            singleEntry: reply.body,
+            singleEntry: reply.val().entryDataObj,
             loaded: true
-          }
-        )
+          },
+        )        
       })
   }
 
@@ -94,6 +94,7 @@ class ReadEntry extends Component {
   }
 
   render() {
+    console.log(this.state.singleEntry, "single entry")
     return (
       <div style={{display: 'flex', 'align-content': 'center', 'justify-content': 'center'}} >    
         {!this.state.loaded ? <div>loading...</div> :
@@ -101,7 +102,7 @@ class ReadEntry extends Component {
             <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style={{ width: '53.45rem' }} />
             <TitleWrapper>
               <Title>{this.state.singleEntry.title}</Title>
-              <p>{this.displayDate(this.state.singleEntry.createdAt)}</p>
+              {/* <p>{this.displayDate(this.state.singleEntry.createdAt)}</p> */}
             </TitleWrapper>
             <MainContent>
             <ContentWrapper>

@@ -82,16 +82,6 @@ class CreateGroup extends Component {
         this.setState({email: ''})
     }
 
-    // searchTest(term) {
-    //     var terms = term.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
-    //     var url = `api/Users/UniversalUserSearch?term=${terms}`;
-    //     fetch(url).then(response => response.json())
-    //         .then(jsonData => {
-    //             var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
-    //             this.setState({ membersToAdd: membersToSelect });
-    //         })
-    //         .catch(error => console.log(error));
-    // }
 
     render() {
         const membersAdded = this.state.members.map((member) => <ListGroupItem key={user_id.value}>{user_id.display}</ListGroupItem>)

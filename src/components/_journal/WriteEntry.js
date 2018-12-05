@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import api from '../../api.js'
-import auth from '../../auth.js';
-import { Button } from 'semantic-ui-react'
+import api from '../../api.js';
+import { Button } from 'semantic-ui-react';
 import { Input } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 import PickImage from './PickImage';
@@ -94,7 +93,7 @@ class WriteEntry extends Component {
         var entryPhoto = this.state.chosenPhoto;
         console.log("Entry Photo: ", entryPhoto)
         //var entryPhotoName = entryPhoto.title.replace(".jpg", "");
-        var storageRef = firebase.storage().ref()
+        // var storageRef = firebase.storage().ref()
         var entryDataObj = {
           title: this.state.title,
           content: this.state.content,

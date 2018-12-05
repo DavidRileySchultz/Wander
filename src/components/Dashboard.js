@@ -10,7 +10,7 @@ import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './_journal/ReadEntry';
 import EditEntry from './_journal/EditEntry';
-import { userId } from '../firebase.js'
+import { userId, firebaseAuth } from '../firebase.js'
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -129,6 +129,7 @@ const ResultsHeader = props => {
     constructor() {
       super();
       this.state = {
+        userObj: {},
         entries: [],
         geotaggedEntries: [],
         searchPeriod: '',
@@ -140,21 +141,38 @@ const ResultsHeader = props => {
   
     componentDidMount() {
       this.loadEntries();
+      const userObj = firebaseAuth;
+      console.log("USEROBJ ", userObj);
+      this.setState({ userObj });
     }
   
     loadEntries = () => {
       api
-        .requestEntries()
+        .requestEntries(
+          this.state.searchPeriod,
+          this.state.searchTerm
+        )
         .then(reply => {
-          console.log(reply.val(), 'all entries!!!!')
-          this.setState({ entries: reply.val()})
-        }
-        );
+          let entriesObject = reply.val()
+          console.log("have id???", entriesObject)
+          let entries = []
+          Object.keys(entriesObject).map((key, index) => {
+            entries[index] = entriesObject[key].entryDataObj
+            entries[index].id = key
+          })
+          this.setState({ 
+            entries: reply.val(),
+            currentPeriod: this.state.searchPeriod,
+            currentSearchTerm: this.state.searchTerm,
+            geotaggedEntries: entries
+          })    }   
+        ); 
     };
   
     handleClick = () => {
       this.loadEntries();      
     };
+    
     searchReset = () => {
       this.setState(
         {

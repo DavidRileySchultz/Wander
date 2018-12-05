@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Card, Image, Button } from 'semantic-ui-react'
-import auth from '../../auth.js';
 import api from '../../api.js';
 
 
@@ -18,16 +17,16 @@ class EntryPreview extends Component {
   }
 
   handleDelete = (event) => {
-    console.log('clicked', this.props.data.id, auth.getToken());
-    api.requestDeleteEntry(this.props.data.id, auth.getToken())
+    console.log('clicked', this.props.entry.id);
+    api.requestDeleteEntry(this.props.entry.id)
       .then(this.setState(st => (
         { imageDeleted: true }
       )))
   }
 
   render() {
-    console.log("This is an entry")
-    console.log(this.props.entry)
+    // console.log("This is an entry")
+    console.log("HERE HERE", this.props.entry)
     return (
       <Grid.Column>
         {this.state.imageDeleted ? <Card.Header>Entry successfully deleted. </Card.Header> :
