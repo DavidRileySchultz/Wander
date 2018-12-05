@@ -24,7 +24,18 @@ class Api {
     }
 
     requestEntries = () => {
-        console.log("Current User ====> ", firebaseAuth)
+        let cu = firebase.auth();
+        for(let item in cu){
+            console.log(item);
+            if(item === 'currentUser'){
+                console.log('found that lil bitch');
+                console.log(cu[item]);
+            }
+            if(item === 'O'){
+                console.log('found that lil bitch');
+                console.log(cu[item]);
+            }
+        }
        return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1`).once('value')
     }
 
