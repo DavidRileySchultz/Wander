@@ -34,11 +34,11 @@ const Slider = styled.div`
 
 `;
 
-// const displayDate = timeStamp => {
-//     let newDateArray = timeStamp.split('T');
-//     let justDate = newDateArray[0];
-//     return justDate;
-// }
+const displayDate = timeStamp => {
+    let newDateArray = timeStamp.split('T');
+    let justDate = newDateArray[0];
+    return justDate;
+}
 
 const Pin = props => {
     //console.log("source of trouble", props.entry)
@@ -96,7 +96,6 @@ class SimpleMap extends Component {
         console.log("the simplemap props are:", nextProps)
         if (nextProps.geotaggedEntries.length > 0){
             let entryList = nextProps.geotaggedEntries
-            console.log("Entry List", entryList)
             this.setState({ 
                 center:{lat:entryList[entryList.length-1].lat+0.05,lng:entryList[entryList.length-1].lng},           
                 hoveredMapPoint:entryList[entryList.length-1]
@@ -240,7 +239,6 @@ class SimpleMap extends Component {
     }
 
     renderPins = (entries) => {
-        console.log("fixed?? ", entries)
         let renderedPins =
             entries.map(entry =>
                 <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
@@ -279,7 +277,6 @@ class SimpleMap extends Component {
                         zoom={this.state.zoom}
                         resetBoundsOnResize={true}
                         onChildMouseEnter={(i) => {
-                            console.log('child', this.props.geotaggedEntries[i]);
                             this.setState({ hoveredMapPoint: this.props.geotaggedEntries[i] })
                         }}
 

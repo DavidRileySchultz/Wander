@@ -154,7 +154,6 @@ const ResultsHeader = props => {
         )
         .then(reply => {
           let entriesObject = reply.val()
-          console.log("have id???", entriesObject)
           let entries = []
           Object.keys(entriesObject).map((key, index) => {
             entries[index] = entriesObject[key].entryDataObj

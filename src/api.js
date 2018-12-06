@@ -31,10 +31,6 @@ class Api {
                 console.log('found that lil bitch');
                 console.log(cu[item]);
             }
-            if(item === 'O'){
-                console.log('found that lil bitch');
-                console.log(cu[item]);
-            }
         }
        return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1`).once('value')
     }

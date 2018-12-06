@@ -10,11 +10,11 @@ class EntryPreview extends Component {
     this.state = { imageDeleted: false }
   }
 
-  displayDate = timeStamp => {
-    let newDateArray = timeStamp.split('T');
-    let justDate = newDateArray[0];
-    return justDate;
-  }
+  // displayDate = timeStamp => {
+  //   let newDateArray = timeStamp.split('T');
+  //   let justDate = newDateArray[0];
+  //   return justDate;
+  // }
 
   handleDelete = (event) => {
     console.log('clicked', this.props.entry.id);
@@ -25,8 +25,6 @@ class EntryPreview extends Component {
   }
 
   render() {
-    // console.log("This is an entry")
-    console.log("HERE HERE", this.props.entry)
     return (
       <Grid.Column>
         {this.state.imageDeleted ? <Card.Header>Entry successfully deleted. </Card.Header> :

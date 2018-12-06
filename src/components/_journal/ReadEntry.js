@@ -87,11 +87,11 @@ class ReadEntry extends Component {
       })
   }
 
-  displayDate = timeStamp => {
-    let newDateArray = timeStamp.split('T');
-    let justDate = newDateArray[0];
-    return justDate;
-  }
+  // displayDate = timeStamp => {
+  //   let newDateArray = timeStamp.split('T');
+  //   let justDate = newDateArray[0];
+  //   return justDate;
+  // }
 
   render() {
     console.log(this.state.singleEntry, "single entry")

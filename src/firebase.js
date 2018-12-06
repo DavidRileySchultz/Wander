@@ -20,6 +20,7 @@ const config = {
       console.log(user.uid, '========>')
       console.log(firebaseAuth.currentUser)
       console.log('logged in')
+      window.uid = user.uid;
     } else {
       console.log('not logged in')
     }
