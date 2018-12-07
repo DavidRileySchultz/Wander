@@ -39,7 +39,7 @@ class DisplayGroupEntries extends Component {
                     <div />
                     <div className="card-content">
                         <ButtonPosition extra>
-                        <CreateButton size="massive" as={Link} to='/dashboard/writeentry'> + </CreateButton>
+                        <Button size="massive" as={Link} to='/dashboard/writegroupentry'> + </Button>
                         </ButtonPosition>
                         <Card.Header>
                             Create a new entry! 

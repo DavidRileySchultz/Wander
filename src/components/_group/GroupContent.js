@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import { CreateGroup } from './CreateGroup';
 import { ViewGroup } from './ViewGroup';
 import { EditGroup } from './EditGroup';
+import { DisplayGroupEntries } from '../_groupJournal/DisplayGroupEntries';
 import { Tooltip, OverlayTrigger, ListGroup, ListGroupItem, ButtonGroup, Button, Col, Row, Glyphicon } from 'react-bootstrap';
 import background from '../../_images/Travel.jpg'
 
@@ -71,8 +73,6 @@ export class GroupContent extends Component {
         this.backToAllGroups = this.backToAllGroups.bind(this);
         this.goEditGroup = this.goEditGroup.bind(this);
         this.goViewGroup = this.goViewGroup.bind(this);
-        //this.goToJournal = this.goToJournal.bind(this);
-        //this.goToItinerary = this.goToItinerary.bind(this);
         this.changeViewDetails = this.changeViewDetails.bind(this);
     }
 
@@ -153,7 +153,7 @@ export class GroupContent extends Component {
     }
 
     componentWillMount() {
-        
+
         // let groupsIn;
         // let groupsOwn;
         // var id = localStorage.getItem('userId');
@@ -171,11 +171,6 @@ export class GroupContent extends Component {
     }
 
     render() {
-        console.log("What's here??")
-        const style = {
-            bacgroundColor: "orange",
-            height: "100vh"
-        }
 
         const tooltip = (
             <Tooltip id="tooltip">
@@ -200,9 +195,7 @@ export class GroupContent extends Component {
             }
             viewGroupButtons = <ButtonGroup vertical>
                 <Button onClick={() => this.changeViewDetails("About")} active={this.state.viewGroupDetails === "About"}>About</Button>
-                <Button onClick={() => this.changeViewDetails("Members")} active={this.state.viewGroupDetails === "Members"}>Members</Button>
-                <Button onClick={() => this.changeViewDetails("Itinerary")} active={this.state.viewGroupDetails === "Itinerary"}>Itinerary</Button>
-                <Button onClick={() => this.chanveViewDetails("Journal")} active={this.state.viewGroupDetails === "Journal"}>Journal</Button>
+                <Button onClick={() => this.changeViewDetails("Members")} active={this.state.viewGroupDetails === "Members"}>Members</Button>                
             </ButtonGroup>
         }
         const returnToGroups = this.backToAllGroups;
@@ -229,11 +222,12 @@ export class GroupContent extends Component {
             console.log("Got here ", this.state.groupsOwn)
             return (
                 <Wrapper>
-                
                     <Row className="empty-space5percent" />
                     <Row>
                         <Col md={4} mdOffset={1} >
                             <CreateButton className="btn action-button" onClick={(event) => this.addNewGroup(event)}>Create a Group</CreateButton>
+                            <CreateButton className="btn action-button" as={Link} to='/dashboard/groupentries'>Group Journal</CreateButton>                            
+                            <CreateButton className="btn action-button" as={Link} to='/dashboard/itinerary'>Group Itinerary</CreateButton>
                         </Col>
                     </Row>
                     <Row>

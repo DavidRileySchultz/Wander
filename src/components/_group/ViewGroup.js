@@ -40,11 +40,11 @@ export class ViewGroup extends Component {
             </Row>
         }
         else if(this.props.viewingGroupDetails === "Journal") {
-            contents = <Row>
+            contents = <div><Row>
                 <h2>Your Itinerary</h2>
                 {/* is this where I want to display the Itinerary?
                 or should I be using a homepage that will look like the user's homepage? */}
-            </Row>
+            </Row></div>
         }
 
         return (

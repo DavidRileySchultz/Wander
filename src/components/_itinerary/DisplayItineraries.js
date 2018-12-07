@@ -28,8 +28,8 @@ width: 100%;
 
 class DisplayItineraries extends Component {
 
-    displayEntryPreview = (itineraryObj) => {
-        return (<ItneraryPreview data={itineraryObj} key={itineraryObj.id} />)
+    displayItineraryPreview = (itineraryObj) => {
+        return (<ItineraryPreview data={itineraryObj} key={itineraryObj.id} />)
     }
 
     render() {
@@ -39,16 +39,16 @@ class DisplayItineraries extends Component {
                     <div />
                     <div className="card-content">
                         <ButtonPosition extra>
-                        <CreateButton size="massive" as={Link} to='/dashboard/createitinerary'> + </CreateButton>
+                        <Button size="massive" as={Link} to='/dashboard/createitinerary'> + </Button>
                         </ButtonPosition>
                         <Card.Header>
                             Create a new itinerary! 
                         </Card.Header>
                     </div>
                 </Card>
-                {this.props.entries.length ?
+                {/* {this.props.entries.length ?
                     this.props.entries.map(this.displayItneraryPreview) :
-                    null}
+                    null} */}
             </CardWrapper>
         )
     }

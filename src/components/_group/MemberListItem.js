@@ -7,7 +7,7 @@ export class MemberListItem extends Component {
     }
 
     isActive() {
-        const existingMembers = this.props.existingMembers.amp(a => a.value);
+        const existingMembers = this.props.existingMembers.map(a => a.value);
         const thisMember = this.props.value;
         if(existingMembers.include(thisMember)) {
             return true;

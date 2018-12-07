@@ -11,7 +11,11 @@ import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './_journal/ReadEntry';
 import EditEntry from './_journal/EditEntry';
-import { userId, firebaseAuth } from '../firebase.js'
+import { firebaseAuth } from '../firebase.js'
+import DisplayGroupEntries from './_groupJournal/DisplayGroupEntries';
+import DisplayItineraries from './_itinerary/DisplayItineraries';
+import CreateItinerary from './_itinerary/CreateItinerary';
+import WriteGroupEntry from './_groupJournal/WriteGroupEntry';
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -277,7 +281,35 @@ const ResultsHeader = props => {
                 return <ReadEntry {...props} history={this.props.history} />;
               }}
             />
-
+            <Route 
+              path={`/dashboard/groupentries`}
+              render={() => {
+                return <DisplayGroupEntries entries={this.state.entries} />;
+              }}
+            />
+            <Route
+              path={`/dashboard/writegroupentry`}
+              render={() => {
+                return (
+                  <WriteGroupEntry
+                    history={this.props.history}
+                    reloadEntries={this.loadEntries}
+                  />
+                );
+              }}
+              />
+            <Route
+              path={`/dashboard/itinerary`}
+              render={() => {
+                return <DisplayItineraries itineraries={this.state.itineraries} />;
+              }}
+            />
+            <Route
+              path={`/dashboard/createitinerary`}
+              render={() => {
+                return <CreateItinerary />
+              }}
+            />
           </ContentWrapper>
         </MainWrapper>
       </div>

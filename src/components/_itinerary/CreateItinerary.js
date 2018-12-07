@@ -4,18 +4,6 @@ import { Input } from 'semantic-ui-react';
 import styled from 'styled-components';
 import firebase from 'firebase';
 
-const config = {
-    apiKey: "AIzaSyANRTOu6PW7PLUeIlLd4S91EJxawTkbV2g",
-    authDomain: "wander-d271d.firebaseapp.com",
-    databaseURL: "https://wander-d271d.firebaseio.com",
-    projectId: "wander-d271d",
-    storageBucket: "wander-d271d.appspot.com",
-    messagingSenderId: "93575872728"
-  };
-  firebase.initializeApp(config);
-  
-  const storage = firebase.storage();
-  const storageRef = storage.ref('');
 
 const Title = styled.h1`
 display: flex;
@@ -54,10 +42,6 @@ text-align: right;
 
 const AnswerWrapper = styled.div`
 text-align: left;
-border-top: 1px solid lightgrey;
-border-bottom: 1px solid lightgrey;
-border-left: 1px solid lightgrey;
-border-right: 1px solid lightgrey;
 flex-driection: column;
 display: flex;
 `
@@ -97,7 +81,7 @@ class CreateItinerary extends Component {
         event.preventDefault();    
         console.log('submitting form.');
         var entryDataObj = {
-          tripName: this.state,tripName,
+          tripName: this.state.tripName,
           startDate: this.state.startDate,
           endDate: this.state.endDate,
           dayOne: this.state.dayOne,
@@ -110,7 +94,7 @@ class CreateItinerary extends Component {
           dayEight: this.state.dayEight,
           dayNine: this.state.dayNine,
           dayTen: this.state.dayTen,
-          groupId: groupId
+        //   groupId: groupId
         };
     };
 

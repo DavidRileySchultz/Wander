@@ -10,19 +10,6 @@ import styled from 'styled-components'
 
 const FontAwesome = require('react-fontawesome')
 
-const config = {
-    apiKey: "AIzaSyANRTOu6PW7PLUeIlLd4S91EJxawTkbV2g",
-    authDomain: "wander-d271d.firebaseapp.com",
-    databaseURL: "https://wander-d271d.firebaseio.com",
-    projectId: "wander-d271d",
-    storageBucket: "wander-d271d.appspot.com",
-    messagingSenderId: "93575872728"
-  };
-  firebase.initializeApp(config);
-  
-  const storage = firebase.storage();
-  const storageRef = storage.ref('');
-
 const Title = styled.h1`
   display: flex;
   justify-content: center;
@@ -124,7 +111,7 @@ class WriteGroupEntry extends Component {
               entryPhoto
             ),
             this.setState({ loadingWrite: true }),
-            storageRef
+            firebase
               .child(
                 `user_uploaded_photos/${auth.getGroup().group_id}/${
                   this.state.groupTitle
@@ -165,7 +152,7 @@ class WriteGroupEntry extends Component {
               deleteChosenPhoto={this.deleteChosenPhoto}
             />
             <TitleWrapper>
-              <Title>Write a new entry</Title>
+              <Title>Write a new group entry</Title>
             </TitleWrapper>
              <form>
              <MainContent>
