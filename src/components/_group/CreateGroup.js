@@ -79,6 +79,17 @@ export class CreateGroup extends Component {
         });
     }
     
+    searchTest(term2) {
+        let terms = term2.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
+        let url = `/api/Travellers/UniversalTravellerSearch?term1=${terms}`;
+        fetch(url).then(response => response.json())
+            .then(jsonData => {
+                let membersToSelect = jsonData.map(member => { return { value: member.id, display: `${member.name}` } });
+                this.setState({ membersToAdd: membersToSelect });
+            })
+            .catch(error => console.log(error));
+    }
+
     addFriend = event => {
         event.preventDefault()
             if(this.state.email) {
@@ -97,7 +108,7 @@ export class CreateGroup extends Component {
 
     render() {
         const membersAdded = this.state.members.map((member) => <ListGroupItem key={firebaseAuth.value}>{firebaseAuth.display}</ListGroupItem>)
-        const memberSearch = _.debounce((term) => { this.addFriend(term) }, 650);
+        const memberSearch = _.debounce((event, term) => { this.addFriend(event,term) }, 650);
         const addMember = ((selectedMember) => { this.addSelectedMember(selectedMember) });
         const style = {
             height: "85vh",

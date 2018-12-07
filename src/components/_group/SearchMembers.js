@@ -14,17 +14,23 @@ export class SearchMembers extends Component {
     handleChange(event) {
         const target = event.target;
         const value = target.value;
-        const name = target.name;
+        const email = target.email;
         this.setState({
-            [name]: value
+            [email]: value
         });
     }
 
-    onInputChange(term) {
+    onInputChange(event, term) {
         this.setState({ term: term });
-        this.props.onSearchEnter(this.state.term);
+        this.props.onSearchEnter(event, this.state.term);
     }
 
+    addSelectedMember(term) {
+        if(!term) {
+            return
+        }
+        
+    }
     render() {
         return (
             <FormGroup>
@@ -33,8 +39,9 @@ export class SearchMembers extends Component {
                     type="text"
                     name="term"
                     value={this.state.term}
-                    onChange={(event) => this.onInputChange(event.target.value)}
+                    onChange={(event) => this.onInputChange(event, event.target.value)}
                 />
+                <button onClick={() => this.addSelectedMember(this.state.term)}>add</button>
             </FormGroup>
         );
     }

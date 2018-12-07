@@ -38,12 +38,31 @@ export class GroupContent extends Component {
         this.state = {
             createGroup: false,
             groupsIn: [],
-            groupsOwn: [],
+            memberNames: ["A@B.COM", "C@D.COM", "D@E.COM"],
+            groupsOwn: [
+                    {
+                        name: "group1",
+                        id: "group1ID",
+                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
+                        owner: "John Doe"
+                    },
+                    {
+                        name: "GROUP2",
+                        id: "group2ID",
+                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
+                        owner: "John Doe"
+                    },
+                    {
+                        name: "group3",
+                        id: "group3ID",
+                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
+                        owner: "John Doe"
+                    }
+            ],
             editGroupId: null,
-            viewGroupId: null,
+            viewGroupId: "group1ID",
             name: '',
             memberIds: [],
-            memberNames: [],
             userId: null,
             owner: '',
             viewGroupDetails: "About"
@@ -107,23 +126,34 @@ export class GroupContent extends Component {
     }
 
     goViewGroup(index, list) {
+        console.log("Going to view group", index, list)
         var groupId = (list === "in") ? this.state.groupsIn[index].id : this.state.groupsOwn[index].id;
+        var group = this.state.groupsIn[index] || this.state.groupsOwn[index]
         var canEdit = (list === "own") ? index : null;
-        fetch(`api/Groups/Details?id=${groupId}`).then(response => response.json()).then(data =>
-            this.setState({
-                name: data.name,
-                memberIds: data.members,
-                memberNames: data.memberNames,
-                owner: data.owner,
-                userId: data.userId,
-                viewGroupId: groupId,
-                viewGroupDetails: "About",
-                canEditGroup: canEdit
-            }))
-            .catch(error => console.log(error));
+        this.setState({
+            name:  group.name,
+            memberIds: group.memberIds,
+            memberNames: group.memberEmails,
+            owner: group.owner,
+            viewGroupId: groupId,
+            viewGroupDetails: "About"
+        })
+        // fetch(`api/Groups/Details?id=${groupId}`).then(response => response.json()).then(data =>
+        //     this.setState({
+        //         name: data.name,
+        //         memberIds: data.members,
+        //         memberNames: data.memberNames,
+        //         owner: data.owner,
+        //         userId: data.userId,
+        //         viewGroupId: groupId,
+        //         viewGroupDetails: "About",
+        //         canEditGroup: canEdit
+        //     }))
+        //     .catch(error => console.log(error));
     }
 
     componentWillMount() {
+        
         // let groupsIn;
         // let groupsOwn;
         // var id = localStorage.getItem('userId');
@@ -163,7 +193,7 @@ export class GroupContent extends Component {
                 userId={this.state.userId}
                 owner={this.state.owner}
                 id={this.state.editGroupId}
-                viewGroupDetails={this.state.viewGroupDetails}
+                viewingGroupDetails={this.state.viewGroupDetails}
             />
             if (this.state.canEditGroup !== null) {
                 editGroup = <a className="btn action-button" onClick={() => this.goEditGroup()}>Edit Group</a>
@@ -196,6 +226,7 @@ export class GroupContent extends Component {
             );
         }
         else {
+            console.log("Got here ", this.state.groupsOwn)
             return (
                 <Wrapper>
                 
@@ -214,7 +245,7 @@ export class GroupContent extends Component {
                                         {g.name}
                                         <span className="pull-right">
                                             <OverlayTrigger placement="right" overlay={tooltip}>
-                                                <Glyphicon glyph="star" />
+                                                <Glyphicon glyph="heart" />
                                             </OverlayTrigger>
                                         </span>
                                     </ListGroupItem>)

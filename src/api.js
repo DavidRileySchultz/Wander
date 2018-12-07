@@ -32,16 +32,16 @@ class Api {
                 console.log(cu[item]);
             }
         }
-       return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1`).once('value')
+       return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal`).once('value')
     }
 
     requestSingleEntry = (id, token) => {
         console.log("Current Entry =====++===>>> ", `/users/entries/${id}`)
-        return firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/${id}`).once('value')
+        return firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal/${id}`).once('value')
     }
 
     createSingleEntry = (entryDataObj) => {
-        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}`).push({
+        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}/personal`).push({
             entryDataObj: entryDataObj
         });
     }

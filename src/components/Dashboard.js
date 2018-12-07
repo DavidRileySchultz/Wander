@@ -154,14 +154,15 @@ const ResultsHeader = props => {
           this.state.searchTerm
         )
         .then(reply => {
-          let entriesObject = reply.val()
+          let entriesObject = reply.val() || {}
           let entries = []
           Object.keys(entriesObject).map((key, index) => {
+            console.log(entriesObject, "Entry object")
             entries[index] = entriesObject[key].entryDataObj
             entries[index].id = key
           })
           this.setState({ 
-            entries: reply.val(),
+            entries: reply.val() || {},
             currentPeriod: this.state.searchPeriod,
             currentSearchTerm: this.state.searchTerm,
             geotaggedEntries: entries

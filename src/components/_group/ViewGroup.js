@@ -31,7 +31,7 @@ export class ViewGroup extends Component {
                 </div>
         }
         else if(this.props.viewingGroupDetails === "Members") {
-            var membersAdded = this.props.memberName.map((member, index) => <ListGroupItem key={index} >{member}</ListGroupItem>)
+            var membersAdded = this.props.memberNames.map((member, index) => <ListGroupItem key={index} >{member}</ListGroupItem>)
             contents = <Row>
                 <h2>Members</h2>
                 <ListGroup>
@@ -39,7 +39,7 @@ export class ViewGroup extends Component {
                 </ListGroup>
             </Row>
         }
-        else if(this.props.viewingGroupDetails === "Itinerary") {
+        else if(this.props.viewingGroupDetails === "Journal") {
             contents = <Row>
                 <h2>Your Itinerary</h2>
                 {/* is this where I want to display the Itinerary?
