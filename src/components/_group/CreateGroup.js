@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Form, FormGroup, FormControl, Col, ListGroupItem, ListGroup, Row, Alert } from 'react-bootstrap';
-import { SearchMembers } from './_groups/SearchMembers';
-import { Members } from './_groups/Members';
+import { SearchMembers } from './SearchMembers';
+import { Members } from './Members';
 import _ from 'lodash';
-import firebase from 'firebase';
+import { firebase, firebaseAuth } from 'firebase';
 
-class CreateGroup extends Component {
+const ActionButton = styled.button`
+    padding: 0.7rem;
+    color: rgb(47,67,88);
+    display: inline-block;
+    border-radius: 0.35rem;
+    &:hover {
+    display: inline-block;
+    background: rgba(143,159,178,.7);
+    cursor: pointer;
+    }
+`;
+export class CreateGroup extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -24,14 +36,14 @@ class CreateGroup extends Component {
             this.setState({ errorMessage: "Can't create group without a name!" });
         }
         else {
-            var uid = firebase.auth();
+            var uid = firebase.auth().currentUser.uid;
             var members = this.state.members.map(a => Number(a.value));
             const groupObj = {
                 name: this.state.name,
                 members: members,
                 uid: uid,
             };
-            firebase.database.ref(`/groups/users/`)
+            firebase.database().ref(`/groups/users/`)
         }
     }
 
@@ -84,7 +96,7 @@ class CreateGroup extends Component {
 
 
     render() {
-        const membersAdded = this.state.members.map((member) => <ListGroupItem key={user_id.value}>{user_id.display}</ListGroupItem>)
+        const membersAdded = this.state.members.map((member) => <ListGroupItem key={firebaseAuth.value}>{firebaseAuth.display}</ListGroupItem>)
         const memberSearch = _.debounce((term) => { this.addFriend(term) }, 650);
         const addMember = ((selectedMember) => { this.addSelectedMember(selectedMember) });
         const style = {
@@ -106,8 +118,8 @@ class CreateGroup extends Component {
             <div style={style}>
                 <Row className="empty-space2percent" />
                 <Row>
-                    <Col md={2} mdOffset={1}>
-                        <h1 className="page-subtitle"> Create a Group to Adventure With!</h1>
+                    <Col md={3} mdOffset={3}>
+                        <h2 className="page-subtitle"> Create New Group!</h2>
                     </Col>
                 </Row>
                 <Row>
@@ -143,10 +155,10 @@ class CreateGroup extends Component {
                 </Row>
                 <Row>
                     <Col md={1} mdOffSet={1}>
-                        <a className="smaller-action-buttons" onClick={this.props.returnToGroup}>Back</a>
+                        <ActionButton onClick={this.props.returnToGroup}>Back</ActionButton>
                     </Col>
                     <Col md={2}>
-                        <a className="btn action-button" onClick={(event) => this.submitGroup(event)}>Create Group</a>
+                        <ActionButton onClick={(event) => this.submitGroup(event)}>Create Group</ActionButton>
                     </Col>
                 </Row>
             </div>
@@ -154,4 +166,4 @@ class CreateGroup extends Component {
     }
 }
 
-// export default CreateGroup;
+export default CreateGroup;

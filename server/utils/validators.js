@@ -10,7 +10,7 @@ class Validator {
         if(error) {
             return res.status(422).send({
                 error: "Invalid Input", 
-                message: error.message || "Missing fields"
+                message: error.message 
             })
         }
         return next()

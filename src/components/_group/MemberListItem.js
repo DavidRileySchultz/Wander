@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 
-class MemberListItem extends Component {
+export class MemberListItem extends Component {
     constructor(props){
         super(props);
     }

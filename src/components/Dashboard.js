@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import SimpleMap from './_journal/SimpleMap';
 import api from '../api.js';
 import auth from '../auth.js';
+import GroupContent from './_group/GroupContent';
 import WriteEntry from './_journal/WriteEntry';
 import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
@@ -211,11 +212,11 @@ const ResultsHeader = props => {
                   <Options>Entries</Options>
                 </SidebarLink>
               </Link>
-              {/* <Link to="/dashboard/groups" style={{ textDecoration: 'none' }}>
+              <Link to="/dashboard/groups" style={{ textDecoration: 'none' }}>
                 <SidebarLink isActive={this.props.page === 'groups'}>
                   <Options>Group</Options>
                 </SidebarLink>
-              </Link> */}
+              </Link>
               <Link to="/dashboard/map" style={{ textDecoration: 'none' }}>
                 <SidebarLink isActive={this.props.page === 'map'}>
                   <Options>Map</Options>
@@ -247,6 +248,12 @@ const ResultsHeader = props => {
               }}
             />
             <Route
+              path={`/dashboard/groups`}
+              render={() => {
+                return <GroupContent />;
+              }}
+              />
+            <Route
               path={`/dashboard/writeentry`}
               render={() => {
                 return (
@@ -269,6 +276,7 @@ const ResultsHeader = props => {
                 return <ReadEntry {...props} history={this.props.history} />;
               }}
             />
+
           </ContentWrapper>
         </MainWrapper>
       </div>

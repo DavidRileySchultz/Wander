@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import _ from 'lodash';
 
-class ViewGroup extends Component {
+export class ViewGroup extends Component {
     constructor(props){
         super(props);
     }

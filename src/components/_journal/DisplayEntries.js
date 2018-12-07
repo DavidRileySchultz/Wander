@@ -77,4 +77,3 @@ class DisplayEntries extends Component {
     }
 }
 export default DisplayEntries;
-//this.props.entries.length

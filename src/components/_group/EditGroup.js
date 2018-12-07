@@ -1,4 +1,4 @@
-import React, { Component } from 'reaact';
+import React, { Component } from 'react';
 import { Button, ListGroup, ListGroupItem, FormControl, Col, Form, FormGroup, Alert, Row, ButtonGroup } from 'react-bootstrap';
 import { Members } from './Members';
 import { SearchMembers } from './SearchMembers';
@@ -6,7 +6,7 @@ import _ from 'lodash';
 import firebase from 'firebase';
 import { nodeModuleNameResolver } from 'typescript';
 
-class EditGroup extends Component {
+export class EditGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,25 +42,25 @@ class EditGroup extends Component {
     }
 
     addSelectedMember(selectMember) {
-        var currentNewMembers = this.state.newMembers.map(a => a.value).slice();
-        var selectedExist = currentNewMembers.indexOf(this.addSelectedMember.value);
-        var currentOldMembers = this.state.members.map(a => a.value).slice();
-        var selectedOldExist = currentOldMembers.indexOf(selectedMember.value);
-        if(selectedExist === -1 && selectedOldExist === -1) {
-            var editableMembers = this.state.newMembers.slice();
-            editableMembers.push(selectMember);
-            this.setState({
-                newMembers: editableMembers,
-                justAddedMember: true
-            });
-        }
-        else {
-            var editableMembers = this.state.newMembers.slice();
-            editableMembers.splice(selectedExist, 1);
-            this.setState({
-                newMembers: editableMembers
-            })
-        }
+        // var currentNewMembers = this.state.newMembers.map(a => a.value).slice();
+        // var selectedExist = currentNewMembers.indexOf(this.addSelectedMember.value);
+        // var currentOldMembers = this.state.members.map(a => a.value).slice();
+        // var selectedOldExist = currentOldMembers.indexOf(selectedMember.value);
+        // if(selectedExist === -1 && selectedOldExist === -1) {
+        //     var editableMembers = this.state.newMembers.slice();
+        //     editableMembers.push(selectMember);
+        //     this.setState({
+        //         newMembers: editableMembers,
+        //         justAddedMember: true
+        //     });
+        // }
+        // else {
+        //     var editableMembers = this.state.newMembers.slice();
+        //     editableMembers.splice(selectedExist, 1);
+        //     this.setState({
+        //         newMembers: editableMembers
+        //     })
+        // }
     }
 
     handleChange(event) {
@@ -77,8 +77,8 @@ class EditGroup extends Component {
         var url = `api/Users/UniversalUserSearch?term=${terms}`;
         fetch(url).then(response => response.json())
             .then(jsonData => {
-                var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
-                this.setState({ membersToAdd: membersToSelect });
+                // var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
+                // this.setState({ membersToAdd: membersToSelect });
             })
             .catch(error => console.log(error));
     }
@@ -108,23 +108,23 @@ class EditGroup extends Component {
             borderRadius: "5px",
         };
 
-        if(this.state.members !== undefined) {
-            var membersAdded = this.state.members.map((member, index) => <Alert className="dismissable-item" key={member.value} onDismiss={() => this.deleteMember(index)}>{member.display}</Alert>
-        } else { membersAdded = null; }
-        var newMembers = this.state.newMembers.map((member) => <ListGroupItem key={member.value} >{member.display}</ListGroupItem>)
+        // if(this.state.members !== undefined) {
+        //     var membersAdded = this.state.members.map((member, index) => <Alert className="dismissable-item" key={member.value} onDismiss={() => this.deleteMember(index)}>{member.display}</Alert>
+        // } else { membersAdded = null; }
+        // var newMembers = this.state.newMembers.map((member) => <ListGroupItem key={member.value} >{member.display}</ListGroupItem>)
 
-        const memberSearch = _.debounce((term) => { this.searchTest(term) }, 1000);
-        const addMember = ((selectedMember) => {this.addSelectedMember(selectedMember) });
-        var membersToShow = <div><h3>Members</h3>
-            <ListGroup>
-                {membersAdded}
-            </ListGroup></div>
-        if(this.state.justAddedMember) {
-            membersToShow = <div><h3>Members to Add</h3>
-                <ListGroup>
-                    {newMembers}
-                </ListGroup></div>
-        }
+        // const memberSearch = _.debounce((term) => { this.searchTest(term) }, 1000);
+        // const addMember = ((selectedMember) => {this.addSelectedMember(selectedMember) });
+        // var membersToShow = <div><h3>Members</h3>
+        //     <ListGroup>
+        //         {membersAdded}
+        //     </ListGroup></div>
+        // if(this.state.justAddedMember) {
+        //     membersToShow = <div><h3>Members to Add</h3>
+        //         <ListGroup>
+        //             {newMembers}
+        //         </ListGroup></div>
+        // }
 
         return (
             <div style={style}>
@@ -149,13 +149,13 @@ class EditGroup extends Component {
                         </Form>
                     </Col>
                     <Col md={3}>
-                        <SearchMembers onSearchEnter={memberSearch} />
-                        <Members membersToAdd={this.state.memberToAdd}
-                            onMemberSelect={addMember} existingMembers={this.checkForExistingMembers()} />
+                        {/* <SearchMembers onSearchEnter={memberSearch} /> */}
+                        {/* <Members membersToAdd={this.state.memberToAdd}
+                            onMemberSelect={addMember} existingMembers={this.checkForExistingMembers()} /> */}
                     </Col>
                     <Col md={3}>
                         <div style={membersBox}>
-                            {membersToShow}
+                            {/* {membersToShow} */}
                         </div>
                     </Col>
                     <Col md={1}>

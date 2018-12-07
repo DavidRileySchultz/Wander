@@ -1,6 +1,18 @@
+const firebase = require('../firebase');
+
 module.exports = {
     create: (req, res) => {
-        return res.status(200).send({ message: "Create endpoint" })
+        let newGroup = {
+            name: req.body.name,
+            members: req.body.members || [],
+            owner: req.body.creatorEmail
+        }
+
+        return firebase.database().ref(`groups`).push({
+            groupDetails: newGroup
+        }).then((createdGroup) => {
+            return res.status(200).send({newGroup, message: "Create endpoint" })
+        })
     },
     invite: (req, res) => {
         return res.status(200).send({ message: "Invite endpoint"})

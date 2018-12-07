@@ -9,13 +9,13 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/api/groups', groupRoutes)
-
 app.use('/*', (req, res) => {
     return res.send({
         success: true,
         message: 'API is live'
     })
 })
+
 
 const port = process.env.PORT || 3003
 app.listen(port, () => {
