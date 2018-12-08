@@ -69,7 +69,7 @@ class DisplayEntries extends Component {
                 
             </CardWrapper>
                 <h3>Search For Flight Prices!</h3>
-                <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:lunar;fontColour:malt;buttonColour:loch;buttonFontColour:malt;"></div> 
+                <div data-skyscanner-widget="SearchWidget" data-locale="en-US" data-enable-placeholders="true" data-params="colour:loch;fontColour:white;buttonColour:lunar;buttonFontColour:white;"></div> 
             </div>
 
             

@@ -7,6 +7,7 @@ export class SearchMembers extends Component {
         this.state = {
             term: '',
         }
+
         this.handleChange = this.handleChange.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
     }
@@ -25,11 +26,17 @@ export class SearchMembers extends Component {
         this.props.onSearchEnter(event, this.state.term);
     }
 
-    addSelectedMember(term) {
-        if(!term) {
-            return
+    addSelectedTerm(e) {
+        e.preventDefault();
+        let memberList = this.state.memberList;
+        const newTerm = document.getElementById("addInput");
+        if(newTerm.value != "") {
+            memberList.push(newTerm.value);
+            this.setState({
+                memberList: memberList
+            });
         }
-        
+
     }
     render() {
         return (
@@ -41,7 +48,7 @@ export class SearchMembers extends Component {
                     value={this.state.term}
                     onChange={(event) => this.onInputChange(event, event.target.value)}
                 />
-                <button onClick={() => this.addSelectedMember(this.state.term)}>add</button>
+                {/* <button className="button is-info" onClick={this.addSelectedTerm}>add</button> */}
             </FormGroup>
         );
     }

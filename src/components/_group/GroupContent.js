@@ -219,7 +219,6 @@ export class GroupContent extends Component {
             );
         }
         else {
-            console.log("Got here ", this.state.groupsOwn)
             return (
                 <Wrapper>
                     <Row className="empty-space5percent" />
@@ -262,8 +261,7 @@ export class GroupContent extends Component {
                         <Col md={2} mdOffSet={7}>
                             {editGroup}
                         </Col>
-                    </Row>
-                
+                    </Row>                
                 </Wrapper>
             );
         }

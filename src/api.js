@@ -35,6 +35,12 @@ class Api {
        return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal`).once('value')
     }
 
+    createNewGroup = (groupObj) => {
+        return firebase.database().ref(`groups`).push({
+            groupObj: groupObj
+        });
+    }
+
     requestSingleEntry = (id, token) => {
         console.log("Current Entry =====++===>>> ", `/users/entries/${id}`)
         return firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal/${id}`).once('value')
