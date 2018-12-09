@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl, Col, ListGroupItem, ListGroup, Row, Alert } from 'react-bootstrap';
 import { SearchMembers } from './SearchMembers';
 import { Members } from './Members';
 import _ from 'lodash';
-import { firebase, firebaseAuth } from 'firebase';
+import firebase from 'firebase';
 import api from '../../api';
+import { firebaseAuth } from '../../firebase';
+// import browserHistory from 'react-router';
+
+// const BackButton = React.createClass({
+//     render: function() {
+//       return (
+//         <button className="back" onClick={browserHistory.goBack}>{this.props.children}</button>
+//       );
+//     }
+//   });
 
 const ActionButton = styled.button`
     padding: 0.7rem;
@@ -18,29 +29,72 @@ const ActionButton = styled.button`
     cursor: pointer;
     }
 `;
+
+const MembersList = styled.div`
+    overflow-y: auto;
+    max-height: 200px;
+`
 export class CreateGroup extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
+            allUsers: [], 
             name: '',
             members: [{
-
+                value: "firstMember",
+                display: "John Doe"
             }, {
-
+                value: "secondMember",
+                display: "Jane Doe"
             }],
-            membersToAdd: [{
-                email: "johndoe@fb.com",
-                id: "sampleID1"
-            }, {
-                email: "janedoe@fb.com",
-                id: "sampleID2"
-            }],
+            membersToAdd: [],
+            searchedMembers: [
+                {
+                    value: "firstMember",
+                    display: "John Doe"
+                },
+                {
+                    value: "thirdMember",
+                    display: "Julie Doe"
+                },
+                {
+                    value: "sixthMember",
+                    display: "Julie Doe"
+                },
+                {
+                    value: "fifthMember",
+                    display: "Julie Doe"
+                },
+                {
+                    value: "seventhMember",
+                    display: "Julie Doe"
+                }
+            ],
             errorMessage: '',
         }
         this.submitGroup = this.submitGroup.bind(this);
         this.addItem = this.addItem.bind(this);
     }
-
+    componentWillMount() {
+        firebase.database().ref('usersInfo').once('value').then((users) => {
+            console.log("Users: ", users.val())
+            let usersObj = users.val()
+            let fetchedUsers = []
+            Object.keys(usersObj).map((key) => {
+                let user = {
+                    value: usersObj[key].email,
+                    display: `${usersObj[key].firstName} ${usersObj[key].lastName}`
+                }
+                fetchedUsers.push(user)
+            })
+            console.log("fetched: ", fetchedUsers)
+            this.setState({
+                searchedMembers: fetchedUsers
+            }, () => {
+                console.log("users fetched")
+            })
+        })
+    }
     async submitGroup(event) {
         event.preventDefault();
         const groupTitle = document.getElementById("groupTitle").value
@@ -48,30 +102,72 @@ export class CreateGroup extends Component {
             this.setState({ errorMessage: "Can't create group without a name!" });
         }
         else {
-            // console.log("CURRENT USER ID", firebaseAuth)
-            var uid = "Z7dihXJSTWSL1TI6TqBGm4HF1Pp1";
+            var uid = "HtNWnUTMbGPs6atOeiyDJniygnZ2";
+            let userId = firebase.auth().currentUser.uid
+            console.log("Current user: ", userId, firebaseAuth.currentUser)
             const groupObj = {
-                name: this.state.name,
-                memberIDS: this.state.membersToAdd,
-                ownerID: uid,
+                name: groupTitle,
+                members: this.state.membersToAdd,
+                ownerID: uid
             };
-            api.createNewGroup(groupObj)
-            .then((createdUser) => {
-                console.log("Created User")
+            api.createNewGroup(groupObj).then(() => {
+                console.log("Props: ", this.props)
+                this.props.returnToGroupsHome()
+                //this.props.history.push(`/dashboard/groups`)
+            }).catch((error) => {
+                console.log(error)
             })
-            .catch((error=> {
-                console.log("Error ",(error))
-            } ) )
         }
     }
+    
+    searchTest(term2) {
+        
+        let terms = term2.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
 
-    addItem(e) {
+        // firebase.database().child('user').orderByChild('emailAddress').equalTo(emailAddress).once('value', function(snap) {
+        //     callback( snap.val() );
+        // });
+
+        let url = `http://localhost:50271/api/Travellers/UniversalTravellerSearch?term1=${terms}`;
+        fetch(url).then(response => response.json())
+            .then(jsonData => {
+                let membersToSelect = jsonData.map(member => { return { value: member.id, display: `${member.name}` } });
+                this.setState({ membersToAdd: membersToSelect });
+            })
+            .catch(error => console.log(error));
+        
+    }
+
+    addItem(e, memberSelectedFromSearch) {
         e.preventDefault();
+        console.log("Member selected", memberSelectedFromSearch)
+        if(memberSelectedFromSearch) {
+            let membersToAdd = this.state.membersToAdd
+            let currentAddedMembers = this.state.membersToAdd.map(a => a.value).slice();
+            let newMemberValue = memberSelectedFromSearch.value
+            let selectedExist = currentAddedMembers.indexOf(newMemberValue)
+
+            if(selectedExist === -1) {
+                membersToAdd.push(memberSelectedFromSearch)
+                this.setState({
+                    membersToAdd: membersToAdd,
+                    members: membersToAdd
+                })
+            } else {
+                let editableMembers = this.state.membersToAdd.slice()
+                editableMembers.splice(selectedExist, 1)
+                this.setState({
+                    membersToAdd: editableMembers,
+                    members: editableMembers
+                })
+            }
+            return
+        }
         let membersToAdd = this.state.membersToAdd;
         const newMemberEmail = document.getElementById("addInput").value
         if(newMemberEmail != "") {
             membersToAdd.push({
-                email: newMemberEmail
+                display: newMemberEmail
             });
 
             this.setState({
@@ -82,10 +178,10 @@ export class CreateGroup extends Component {
     }
 
     render() {
-        const membersAdded = this.state.membersToAdd.map((member) => <ListGroupItem key={firebaseAuth}>{member.email}</ListGroupItem>)
-        const memberSearch = _.debounce((event, term) => { this.addItem(event,term) }, 650);
-        const addMember = ((selectedMember) => { this.addItem(selectedMember) });
-
+        const membersAdded = this.state.membersToAdd.map((member) => <ListGroupItem key={member.value}>{member.display} ({member.value})</ListGroupItem>)
+        const memberSearch = _.debounce((event, term) => { this.searchTest(event,term) }, 650);
+        const addMember = ((event, selectedMember) => { this.addItem(event, selectedMember) });
+        
         const style = {
             height: "85vh",
         };
@@ -140,8 +236,11 @@ export class CreateGroup extends Component {
                     </Col>
                     <Col md={3}>
                         <SearchMembers onSearchEnter={memberSearch} />
-                        <Members membersToAdd={addMember} existingMembers={this.state.members}
-                            onMemberSelect={addMember} existingMembers={this.state.members} />
+                        <MembersList>
+                        <Members searchedMembers={this.state.searchedMembers} existingMembers={this.state.members}
+                            onMemberSelect={addMember } />
+                         </MembersList> 
+                            
                     </Col>
                     <Col md={4}>
                         <div style={membersBox}>
@@ -154,8 +253,8 @@ export class CreateGroup extends Component {
                 </Row>
                 <Row>
                     <Col md={1} mdOffSet={1}>
-                        <ActionButton onClick={this.props.returnToGroup}>Back</ActionButton>
-                    </Col>
+                        <button>Back</button>                        
+                    </Col>                    
                     <Col md={2}>
                         <ActionButton onClick={(event) => this.submitGroup(event)}>Create Group</ActionButton>
                     </Col>

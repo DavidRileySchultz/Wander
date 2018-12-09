@@ -39,6 +39,8 @@ class CreateAccount extends Component {
     constructor() {
       super()
       this.state = {
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         missingInput: false,
@@ -51,12 +53,16 @@ class CreateAccount extends Component {
 
     handleSubmit = (event) => {
       event.preventDefault();
-      const { email, password } = this.state;
+      const { firstName, lastName, email, password } = this.state;
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((user) => {
-          this.props.history.push("/dashboard");
+          let userInfo =  { firstName, lastName, email}
+          return firebase.database().ref(`usersInfo`).push(userInfo)
+          .then(() => {
+            this.props.history.push("/dashboard");
+          })
         })
         .catch((error) => {
           this.setState({ error: error})
@@ -79,6 +85,8 @@ class CreateAccount extends Component {
                   <Grid.Column style={{ maxWidth: 450 }}>
                     <SEFHeader>Create Account</SEFHeader>
                     <Form onSubmit={this.handleSubmit}>
+                      <Form.Input type='text' placeholder="First Name" value={this.state.firstName} onChange={(e) => this.setState({firstName: e.target.value})} />
+                      <Form.Input type='text' placeholder="Last Name" value={this.state.lastName} onChange={(e) => this.setState({lastName: e.target.value})} />
                       <Form.Input type='email' placeholder="Email" value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
                       <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}  />                      
                        {this.state.missingInput && (<Header as="h5" color="red" textAlign="center">Looks like you forgot something</Header>)}

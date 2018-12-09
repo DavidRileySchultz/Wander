@@ -8,13 +8,13 @@ export class Members extends Component {
     }
 
     render() {
-        // const listItems = this.props.membersToAdd.map((member) => {
-        //     return (<MemberListItem existingMembers={this.props.existingMembers} onMemberSelect={this.props.onMemberSelect} key={member.value} display={member.display}></MemberListItem>
-        //     )
-        // });
+        const listItems = this.props.searchedMembers.map((member) => {
+            return (<MemberListItem value={member.value} existingMembers={this.props.existingMembers} onMemberSelect={this.props.onMemberSelect} key={member.value} display={member.display}></MemberListItem>
+            )
+        });
         return (
             <ListGroup>
-                {/* {listItems} */}
+                {listItems}
             </ListGroup>
         );
     }

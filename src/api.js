@@ -1,6 +1,6 @@
 import { unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
-import {firebase, firebaseAuth} from './firebase';
+import firebase from 'firebase';
 
 
 
@@ -24,30 +24,33 @@ class Api {
     }
 
     requestEntries = () => {
-        let cu = firebase.auth();
-        for(let item in cu){
-            console.log(item);
-            if(item === 'currentUser'){
-                console.log('found that lil bitch');
-                console.log(cu[item]);
-            }
-        }
-       return  firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal`).once('value')
+        // let current = firebase.auth().onAuthStateChanged((user) => {
+        //     console.log("User user", user)
+        // })
+        // setTimeout(() => {
+        //     console.log("Current: ", current)
+        // }, 2000)
+        // let userId = firebase.auth().currentUser.uid
+       return  firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/personal`).once('value')
     }
 
     createNewGroup = (groupObj) => {
         return firebase.database().ref(`groups`).push({
             groupObj: groupObj
-        });
+        }).then((group, b) => {
+            return firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/groups`).push(group.key)
+        })
     }
 
     requestSingleEntry = (id, token) => {
-        console.log("Current Entry =====++===>>> ", `/users/entries/${id}`)
-        return firebase.database().ref(`users/entries/Z7dihXJSTWSL1TI6TqBGm4HF1Pp1/personal/${id}`).once('value')
+        console.log("Current Entry =====++===>>> ", firebase.auth().currentUser.uid)
+        // let userId = firebase.auth().currentUser.uid
+        return firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/personal/${id}`).once('value')
     }
 
     createSingleEntry = (entryDataObj) => {
-        return firebase.database().ref(`users/entries/${firebaseAuth.currentUser.uid}/personal`).push({
+        let userId = firebase.auth().currentUser.uid
+        return firebase.database().ref(`users/entries/${userId}/personal`).push({
             entryDataObj: entryDataObj
         });
     }

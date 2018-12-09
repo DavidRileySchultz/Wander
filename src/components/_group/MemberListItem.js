@@ -9,7 +9,7 @@ export class MemberListItem extends Component {
     isActive() {
         const existingMembers = this.props.existingMembers.map(a => a.value);
         const thisMember = this.props.value;
-        if(existingMembers.include(thisMember)) {
+        if(!existingMembers.includes(thisMember)) {
             return true;
         }
         else {
@@ -20,7 +20,7 @@ export class MemberListItem extends Component {
     render() {
         const memberToAdd = { key: this.props.value, value: this.props.value, display: this.props.display };
         return (
-            <ListGroupItem active={this.isActive()} onClick={() => this.props.onMemberSelect(memberToAdd)}>
+            <ListGroupItem active={this.isActive()} onClick={(event) => this.props.onMemberSelect(event, memberToAdd)}>
                 {this.props.display}
             </ListGroupItem>
         );

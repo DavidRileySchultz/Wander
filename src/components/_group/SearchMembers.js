@@ -26,18 +26,18 @@ export class SearchMembers extends Component {
         this.props.onSearchEnter(event, this.state.term);
     }
 
-    addSelectedTerm(e) {
-        e.preventDefault();
-        let memberList = this.state.memberList;
-        const newTerm = document.getElementById("addInput");
-        if(newTerm.value != "") {
-            memberList.push(newTerm.value);
-            this.setState({
-                memberList: memberList
-            });
-        }
+    // addSelectedTerm(e) {
+    //     e.preventDefault();
+    //     let memberList = this.state.memberList;
+    //     const newTerm = document.getElementById("addInput");
+    //     if(newTerm.value != "") {
+    //         memberList.push(newTerm.value);
+    //         this.setState({
+    //             memberList: memberList
+    //         });
+    //     }
 
-    }
+    // }
     render() {
         return (
             <FormGroup>

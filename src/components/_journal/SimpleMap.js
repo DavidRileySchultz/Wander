@@ -240,8 +240,9 @@ class SimpleMap extends Component {
 
     renderPins = (entries) => {
         let renderedPins =
-            entries.map(entry =>
-                <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
+            entries.map((entry, key) =>
+                <Pin entry={entry} key={key} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
+                
         return renderedPins
     }
 

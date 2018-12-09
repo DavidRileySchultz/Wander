@@ -7,6 +7,7 @@ import { EditGroup } from './EditGroup';
 import { DisplayGroupEntries } from '../_groupJournal/DisplayGroupEntries';
 import { Tooltip, OverlayTrigger, ListGroup, ListGroupItem, ButtonGroup, Button, Col, Row, Glyphicon } from 'react-bootstrap';
 import background from '../../_images/Travel.jpg'
+import firebase from 'firebase'
 
 const Wrapper = styled.div`
     min-height: 100vh;
@@ -168,8 +169,14 @@ export class GroupContent extends Component {
         //         })
         //     })
         //     .catch(g => console.log(g));
+        firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/groups`).once('value').then((data) => {
+            console.log("SNAP SHOT", data.val())
+        })
     }
 
+    backToAllGroupadfs() {
+        this.props.history.push("/dashboard/groups")
+    }
     render() {
 
         const tooltip = (

@@ -87,6 +87,7 @@ class WriteEntry extends Component {
         }
       };
 
+      
       handleSubmit = event => {
         event.preventDefault();    
         console.log('submitting form.');

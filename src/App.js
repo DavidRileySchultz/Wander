@@ -13,6 +13,7 @@ import DisplayGroupEntries from './components/_groupJournal/DisplayGroupEntries'
 import DisplayItineraries from './components/_itinerary/DisplayItineraries';
 import CreateItinerary from './components/_itinerary/CreateItinerary';
 import WriteGroupEntry from './components/_groupJournal/WriteGroupEntry';
+import GroupContent from './components/_group/GroupContent';
 
 class App extends Component {
   render() {
