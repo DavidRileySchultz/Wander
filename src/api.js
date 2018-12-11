@@ -1,8 +1,7 @@
 import { unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './_config/config.js';
 import superagent from 'superagent';
 import firebase from 'firebase';
-
-
+import { } from "./firebase";
 
 class Api {
     createAccount = (email, password) => {
@@ -24,28 +23,35 @@ class Api {
     }
 
     requestEntries = () => {
-        // let current = firebase.auth().onAuthStateChanged((user) => {
-        //     console.log("User user", user)
-        // })
-        // setTimeout(() => {
-        //     console.log("Current: ", current)
-        // }, 2000)
-        // let userId = firebase.auth().currentUser.uid
-       return  firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/personal`).once('value')
+        let userId = window.uid
+       return  firebase.database().ref(`users/entries/${userId}/personal`).once('value')
     }
 
     createNewGroup = (groupObj) => {
+        let userId = window.uid
         return firebase.database().ref(`groups`).push({
             groupObj: groupObj
         }).then((group, b) => {
-            return firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/groups`).push(group.key)
+
+            console.log("ID: g", group.id, "Key", group.name) 
+            return firebase.database().ref(`users/entries/${userId}/groups`).push({
+                id: group.key,
+                name: groupObj.name
+            })
         })
     }
 
+    displayGroups() {
+        firebase.database().ref(`users/entries/${firebase.auth().currentUser.uid}/groups`).once('value').then((data) => {
+            console.log("GROUPS GROUPS!!! ", data.val())
+        })        
+    }
+
     requestSingleEntry = (id, token) => {
+        let userId = window.uid
         console.log("Current Entry =====++===>>> ", firebase.auth().currentUser.uid)
         // let userId = firebase.auth().currentUser.uid
-        return firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/personal/${id}`).once('value')
+        return firebase.database().ref(`users/entries/${userId}/personal/${id}`).once('value')
     }
 
     createSingleEntry = (entryDataObj) => {

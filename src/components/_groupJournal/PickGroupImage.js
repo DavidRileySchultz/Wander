@@ -3,7 +3,7 @@ import api from '../../api';
 import { Button } from 'semantic-ui-react';
 
 
-class PickGroupImage extends Component {
+class PickImage extends Component {
     constructor() {
         super()
         this.state = {
@@ -13,9 +13,15 @@ class PickGroupImage extends Component {
 
     unsplashGet = (e) => {
         e.preventDefault()
-        api.getUnsplashMultiple(this.setSearchQuery(this.state.count)).then(
+        api.getUnsplashMultiple(this.setSearchQuery(this.props.searchQuery),this.state.count).then(
             imageResults => {
                 console.log("returned imageResults:", imageResults.body)
+                imageResults.body.forEach((image, index) => {
+                    let imageURL = image.urls.regular
+                    api.requestGetImage(imageURL).then((image) => {
+                        imageResults.body[index].file = image
+                    })
+                });
                 this.setState({ photoChoicesArray: imageResults.body })
             }
         )
@@ -27,6 +33,7 @@ class PickGroupImage extends Component {
 
     getUploadedFile = (e) => {
         const userFile=e.target.files[0]
+        console.log("User file: ", userFile)
         userFile.urls={regular:URL.createObjectURL(userFile),thumb:URL.createObjectURL(userFile)}
         userFile.userUploaded=true
         console.log("we added local urls to the userFile:",userFile.urls)        
@@ -38,12 +45,7 @@ class PickGroupImage extends Component {
     }
     
     setSearchQuery = (rating) => {
-        let searchQuery =
-            rating >= 9 ? "color" :
-                rating >= 7 ? "horizon" :
-                    rating >= 5 ? "calm" :
-                        rating >= 3 ? 'rain' :
-                            rating >= 0 ? "dark" : "walrus";
+        let searchQuery = "awesome";
         return searchQuery;
     }    
 
@@ -65,7 +67,7 @@ class PickGroupImage extends Component {
                     }}
                     src={this.props.chosenPhoto.urls.regular}
                     
-                    alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo":this.props.chosenPhoto.links.html} />
+                    alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo" : this.props.chosenPhoto.links.html} />
                    <Button onClick={this.props.deleteChosenPhoto}
                    style={{position:"absolute",bottom:10,right:10}}>X</Button>
                     </div>
@@ -78,7 +80,7 @@ class PickGroupImage extends Component {
                         {this.state.photoChoicesArray.map(
                             (photo, index) =>
                                 <button key={index} style={{"maxHeight": "100%", border:'none', 'marginBottom': '1rem' }}
-                                    onClick={() => this.props.selectImage(photo)}>
+                                    onClick={() => this.props.selectImage(photo.file)}>
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />
                                 </button>)}
@@ -106,4 +108,4 @@ class PickGroupImage extends Component {
     }
 }
 
-export default PickGroupImage;
+export default PickImage;

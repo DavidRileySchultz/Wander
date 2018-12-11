@@ -8,15 +8,7 @@ import _ from 'lodash';
 import firebase from 'firebase';
 import api from '../../api';
 import { firebaseAuth } from '../../firebase';
-// import browserHistory from 'react-router';
 
-// const BackButton = React.createClass({
-//     render: function() {
-//       return (
-//         <button className="back" onClick={browserHistory.goBack}>{this.props.children}</button>
-//       );
-//     }
-//   });
 
 const ActionButton = styled.button`
     padding: 0.7rem;
@@ -40,36 +32,9 @@ export class CreateGroup extends Component {
         this.state = {
             allUsers: [], 
             name: '',
-            members: [{
-                value: "firstMember",
-                display: "John Doe"
-            }, {
-                value: "secondMember",
-                display: "Jane Doe"
-            }],
+            members: [],
             membersToAdd: [],
-            searchedMembers: [
-                {
-                    value: "firstMember",
-                    display: "John Doe"
-                },
-                {
-                    value: "thirdMember",
-                    display: "Julie Doe"
-                },
-                {
-                    value: "sixthMember",
-                    display: "Julie Doe"
-                },
-                {
-                    value: "fifthMember",
-                    display: "Julie Doe"
-                },
-                {
-                    value: "seventhMember",
-                    display: "Julie Doe"
-                }
-            ],
+            searchedMembers: [],
             errorMessage: '',
         }
         this.submitGroup = this.submitGroup.bind(this);
@@ -78,7 +43,7 @@ export class CreateGroup extends Component {
     componentWillMount() {
         firebase.database().ref('usersInfo').once('value').then((users) => {
             console.log("Users: ", users.val())
-            let usersObj = users.val()
+            let usersObj = users.val() || {}
             let fetchedUsers = []
             Object.keys(usersObj).map((key) => {
                 let user = {
@@ -102,18 +67,20 @@ export class CreateGroup extends Component {
             this.setState({ errorMessage: "Can't create group without a name!" });
         }
         else {
-            var uid = "HtNWnUTMbGPs6atOeiyDJniygnZ2";
+            var uid = "MrUvV1R8xBUH3XPzRiLKj1wWNaS2";
             let userId = firebase.auth().currentUser.uid
-            console.log("Current user: ", userId, firebaseAuth.currentUser)
+            console.log("Current user: ", window.fullName, userId, firebaseAuth.currentUser)
+            let ownerName = window.fullName
+
             const groupObj = {
                 name: groupTitle,
                 members: this.state.membersToAdd,
-                ownerID: uid
+                ownerID: uid,
+                ownerName
             };
             api.createNewGroup(groupObj).then(() => {
                 console.log("Props: ", this.props)
                 this.props.returnToGroupsHome()
-                //this.props.history.push(`/dashboard/groups`)
             }).catch((error) => {
                 console.log(error)
             })
@@ -220,18 +187,7 @@ export class CreateGroup extends Component {
                                     id="groupTitle"
                                     onChange={() => {}}
                                 />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl
-                                    placeholder="Name to add"
-                                    type="text"
-                                    name="name"
-                                    id="addInput"
-                                    value={this.state.addInput}
-                                    onChange={this.handleChange}
-                                />
-                                <button className="button" onClick={(event) => this.addItem(event)} >Add</button>
-                                </FormGroup>                         
+                            </FormGroup>                      
                         </Form>
                     </Col>
                     <Col md={3}>
@@ -253,7 +209,7 @@ export class CreateGroup extends Component {
                 </Row>
                 <Row>
                     <Col md={1} mdOffSet={1}>
-                        <button>Back</button>                        
+                        <ActionButton>Back</ActionButton>                        
                     </Col>                    
                     <Col md={2}>
                         <ActionButton onClick={(event) => this.submitGroup(event)}>Create Group</ActionButton>

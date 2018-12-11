@@ -14,13 +14,20 @@ const config = {
     firebase.initializeApp(config);
   }
  let userData = { uid: ''};
-  firebase.auth().onAuthStateChanged(function(user){
-    if (user){
-      userData = user;
-      console.log(user.uid, '========>')
+  firebase.auth().onAuthStateChanged(function(data){
+    if (data){
+      let userId = data.uid
       console.log(firebaseAuth.currentUser)
-      console.log('logged in')
-      window.uid = user.uid;
+      console.log('logged in', userId)
+      window.uid = data.uid;
+
+      firebase.database().ref(`usersInfo/${userId}`).once('value').then((data) => {
+        console.log("Data data data", data, data.val())
+        let userDetails = data.val()
+        window.fullName = `${userDetails.firstName} ${userDetails.lastName}`
+        console.log("Full Name'", window.fullName)
+      })
+      console.log("Logged i", window.fullName)
     } else {
       console.log('not logged in')
     }

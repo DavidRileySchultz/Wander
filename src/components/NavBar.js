@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import auth from '../auth.js';
 import { Menu, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-
+import firebase from 'firebase';
 
 const Form = styled.form`
   position: relative;
@@ -64,10 +64,15 @@ class NavBar extends Component {
       this.state = { navOpen: false };
     }
     handleLogOut = event => {
-      auth.logOut(auth.getToken()).then(() => {
-        console.log('navbar this ', this);
-        this.props.hist.push('/');
-      });
+      firebase.auth().signOut().then(() => {
+        this.props.hist.push('/')
+      }).catch((error) => {
+        console.log("An error occured " + error)
+      })
+      // auth.logOut(auth.getToken()).then(() => {
+      //   console.log('navbar this ', this);
+      //   this.props.hist.push('/');
+      // });
     };
 
     handleSubmit = event => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Row, Glyphicon, OverlayTrigger } from 'react-bootstrap';
 import _ from 'lodash';
 
 export class ViewGroup extends Component {
@@ -26,12 +26,13 @@ export class ViewGroup extends Component {
                     <h2>{this.props.name}</h2>
                 </Row>
                 <Row>
-                    <h4>Coordinator: {this.props.owner}</h4>
+                    <h4>Coordinator: {this.props.ownerName}</h4>
                 </Row>
                 </div>
         }
         else if(this.props.viewingGroupDetails === "Members") {
-            var membersAdded = this.props.memberNames.map((member, index) => <ListGroupItem key={index} >{member}</ListGroupItem>)
+            console.log("Members members: ", this.props)
+            var membersAdded = this.props.members.map((member, index) => <ListGroupItem key={index} >{member.display}</ListGroupItem>)
             contents = <Row>
                 <h2>Members</h2>
                 <ListGroup>

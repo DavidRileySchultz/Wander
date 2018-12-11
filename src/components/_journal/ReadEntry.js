@@ -80,7 +80,7 @@ class ReadEntry extends Component {
         console.log("reply ===>", reply.val())
         this.setState(
           {
-            singleEntry: reply.val().entryDataObj,
+            singleEntry: (reply.val() || {}).entryDataObj,
             loaded: true
           },
         )        

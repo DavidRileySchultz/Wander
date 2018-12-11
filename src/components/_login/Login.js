@@ -58,7 +58,9 @@ class Login extends Component {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then((user) => {
+        .then((data) => {
+          console.log("User afafadfa: ", data, data.user.uid)
+          console.log("ID? ID? ", window.uid)
           this.props.history.push("/dashboard");
         })
         .catch((error) => {

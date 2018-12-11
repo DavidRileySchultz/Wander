@@ -32,36 +32,21 @@ const CreateButton = styled.button`
     }
 `;
 
-
-
 export class GroupContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             createGroup: false,
-            groupsIn: [],
+            groupsIn: [{
+                name: "notmygroup",
+                id: "group4ID",
+                membersEmails: ['Julie Doe', 'Jane Doe', 'James Doe'],
+                owner: "John Doe"
+            }],
+            members: [],
             memberNames: ["A@B.COM", "C@D.COM", "D@E.COM"],
-            groupsOwn: [
-                    {
-                        name: "group1",
-                        id: "group1ID",
-                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
-                        owner: "John Doe"
-                    },
-                    {
-                        name: "GROUP2",
-                        id: "group2ID",
-                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
-                        owner: "John Doe"
-                    },
-                    {
-                        name: "group3",
-                        id: "group3ID",
-                        memberEmails: ['A@B.COM', 'C@D.COM', 'E@F.COM'],
-                        owner: "John Doe"
-                    }
-            ],
+            groupsOwn: [],
             editGroupId: null,
             viewGroupId: "group1ID",
             name: '',
@@ -85,24 +70,12 @@ export class GroupContent extends Component {
     }
 
     backToAllGroups() {
-        // let groupsIn;
-        // let groupsOwn;
-        // var id = localStorage.getItem('userId');
-        // await fetch(`api/Groups/GetGroups?id=${id}`).then(response => response.json())
-        //     .then(data => {
-        //         groupsOwn = data.groupsOwn;
-        //         let groupsOwnIds = groupsOwn.map(g => g.id);
-        //         groupsIn = data.groupsIn.filter(g => { return (groupsOwnIds.includes(g.id) === false) });
-        //         this.setState({
-        //             groupsOwn: groupsOwn,
-        //             groupsIn: groupsIn
-        //         })
-        //     }).catch(g => console.log(g));
         this.setState({
             createGroup: false,
             editGroupId: null,
             viewGroupId: null
-        })        
+        })
+        this.componentWillMount()       
     }
 
     changeViewDetails(tab) {
@@ -129,6 +102,7 @@ export class GroupContent extends Component {
     goViewGroup(index, list) {
         console.log("Going to view group", index, list)
         var groupId = (list === "in") ? this.state.groupsIn[index].id : this.state.groupsOwn[index].id;
+        console.log("group id id ", groupId)
         var group = this.state.groupsIn[index] || this.state.groupsOwn[index]
         var canEdit = (list === "own") ? index : null;
         this.setState({
@@ -139,18 +113,7 @@ export class GroupContent extends Component {
             viewGroupId: groupId,
             viewGroupDetails: "About"
         })
-        // fetch(`api/Groups/Details?id=${groupId}`).then(response => response.json()).then(data =>
-        //     this.setState({
-        //         name: data.name,
-        //         memberIds: data.members,
-        //         memberNames: data.memberNames,
-        //         owner: data.owner,
-        //         userId: data.userId,
-        //         viewGroupId: groupId,
-        //         viewGroupDetails: "About",
-        //         canEditGroup: canEdit
-        //     }))
-        //     .catch(error => console.log(error));
+        this.fetchGroupInfo(groupId)
     }
 
     componentWillMount() {
@@ -169,8 +132,67 @@ export class GroupContent extends Component {
         //         })
         //     })
         //     .catch(g => console.log(g));
-        firebase.database().ref(`users/entries/HtNWnUTMbGPs6atOeiyDJniygnZ2/groups`).once('value').then((data) => {
+        let userId = window.uid
+        firebase.database().ref(`users/entries/${userId}/groups`).once('value').then((data) => {
             console.log("SNAP SHOT", data.val())
+            let groupsObj = data.val() || {}
+            let groups = []
+            let groupIDToView = Object.keys(groupsObj)[0] || null
+            console.log("Toview: ", groupIDToView)
+            let members = []
+            let name = null
+            let ownerId = null
+            let ownerName = null
+            let userGroupsOwn = []
+            let userGroupsIn = []
+
+            Object.keys(groupsObj).map((key) => {
+                let groupId = groupsObj[key].id
+                firebase.database().ref(`groups/${groupId}`).once('value').then((group) => {
+                    let groupObj = (group.val() || {}).groupObj || {}
+                    groupObj.id = groupId
+                    if(key == groupIDToView) {
+                        console.log("Group 5678765 obj", groupObj.ownerID, key, groupIDToView)
+                        members = groupObj.members
+                        name = groupObj.name
+                        ownerId = groupObj.ownerID
+                        ownerName = groupObj.ownerName
+                    }
+                    groups.push(groupObj)
+                    console.log("GRoup obj", groups)
+                    
+                    this.setState({
+                        viewGroupId: groupIDToView,
+                        members,
+                        name,
+                        ownerId,
+                        groupsOwn: groups
+                    }, () => {
+                        console.log("MEMBERS", this.state.members)
+                    })
+                })
+            })
+        })
+    }
+
+    fetchGroupInfo(groupId) {
+        console.log("Right id:? ", groupId)
+        firebase.database().ref(`groups/${groupId}`).once('value').then((group) => {
+            console.log("Val val val", group.val())
+            let groupObj = (group.val() || {}).groupObj || {}
+            console.log("group obj", groupObj)
+            let members = groupObj.members
+            let name = groupObj.name
+            let ownerId = groupObj.ownerID
+            let ownerName = groupObj.ownerName
+            this.setState({
+                members,
+                name,
+                ownerId,
+                ownerName
+            }, () => {
+                console.log("MEMBERS", this.state.members)
+            })
         })
     }
 
@@ -190,10 +212,11 @@ export class GroupContent extends Component {
         if (this.state.viewGroupId != null) {
             viewGroup = <ViewGroup
                 name={this.state.name}
-                memberNames={this.state.memberNames}
+                members={this.state.members || []}
                 memberIds={this.state.memberIds}
                 userId={this.state.userId}
-                owner={this.state.owner}
+                ownerId={this.state.ownerId}
+                ownerName={this.state.ownerName}
                 id={this.state.editGroupId}
                 viewingGroupDetails={this.state.viewGroupDetails}
             />
@@ -245,7 +268,7 @@ export class GroupContent extends Component {
                                         {g.name}
                                         <span className="pull-right">
                                             <OverlayTrigger placement="right" overlay={tooltip}>
-                                                <Glyphicon glyph="heart" />
+                                                <Glyphicon glyph="plane" />
                                             </OverlayTrigger>
                                         </span>
                                     </ListGroupItem>)

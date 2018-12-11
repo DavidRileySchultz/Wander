@@ -57,10 +57,15 @@ class CreateAccount extends Component {
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
+        .then((data) => {
+          console.log("signed up up ", data, data.user.uid)
+          let userId = data.user.uid
           let userInfo =  { firstName, lastName, email}
-          return firebase.database().ref(`usersInfo`).push(userInfo)
-          .then(() => {
+          return firebase.database().ref(`usersInfo/${userId}`).set(userInfo)
+          .then((data) => {
+            let userDetails = data.val()
+            window.fullName = `${userDetails.firstName} ${userDetails.lastName}`
+            
             this.props.history.push("/dashboard");
           })
         })
