@@ -50,7 +50,6 @@ class Api {
     requestSingleEntry = (id, token) => {
         let userId = window.uid
         console.log("Current Entry =====++===>>> ", firebase.auth().currentUser.uid)
-        // let userId = firebase.auth().currentUser.uid
         return firebase.database().ref(`users/entries/${userId}/personal/${id}`).once('value')
     }
 
