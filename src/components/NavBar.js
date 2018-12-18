@@ -69,10 +69,6 @@ class NavBar extends Component {
       }).catch((error) => {
         console.log("An error occured " + error)
       })
-      // auth.logOut(auth.getToken()).then(() => {
-      //   console.log('navbar this ', this);
-      //   this.props.hist.push('/');
-      // });
     };
 
     handleSubmit = event => {

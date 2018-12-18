@@ -93,8 +93,6 @@ class WriteEntry extends Component {
         console.log('submitting form.');
         var entryPhoto = this.state.chosenPhoto;
         console.log("Entry Photo: ", entryPhoto)
-        //var entryPhotoName = entryPhoto.title.replace(".jpg", "");
-        // var storageRef = firebase.storage().ref()
         var entryDataObj = {
           title: this.state.title,
           content: this.state.content,

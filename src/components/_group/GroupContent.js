@@ -117,21 +117,6 @@ export class GroupContent extends Component {
     }
 
     componentWillMount() {
-
-        // let groupsIn;
-        // let groupsOwn;
-        // var id = localStorage.getItem('userId');
-        // fetch(`api/Groups/GetGroups?id=${id}`).then(response => response.json())
-        //     .then(data => {
-        //         groupsOwn = data.groupsOwn;
-        //         let groupsOwnIds = groupsOwn.map(g => g.id);
-        //         groupsIn = data.groupsIn.filter(g => { return (groupsOwnIds.includes(g.id) === false) });
-        //         this.setState({
-        //             groupsOwn: groupsOwn,
-        //             groupsIn: groupsIn
-        //         })
-        //     })
-        //     .catch(g => console.log(g));
         let userId = window.uid
         firebase.database().ref(`users/entries/${userId}/groups`).once('value').then((data) => {
             console.log("SNAP SHOT", data.val())

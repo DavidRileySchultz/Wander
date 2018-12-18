@@ -38,29 +38,10 @@ export class EditGroup extends Component {
             name:this.state.name,
             members: this.state.newMembers.map(a => a.value)
         }
-        //syntax needed to save these changes to firebase
     }
 
     addSelectedMember(selectMember) {
-        // var currentNewMembers = this.state.newMembers.map(a => a.value).slice();
-        // var selectedExist = currentNewMembers.indexOf(this.addSelectedMember.value);
-        // var currentOldMembers = this.state.members.map(a => a.value).slice();
-        // var selectedOldExist = currentOldMembers.indexOf(selectedMember.value);
-        // if(selectedExist === -1 && selectedOldExist === -1) {
-        //     var editableMembers = this.state.newMembers.slice();
-        //     editableMembers.push(selectMember);
-        //     this.setState({
-        //         newMembers: editableMembers,
-        //         justAddedMember: true
-        //     });
-        // }
-        // else {
-        //     var editableMembers = this.state.newMembers.slice();
-        //     editableMembers.splice(selectedExist, 1);
-        //     this.setState({
-        //         newMembers: editableMembers
-        //     })
-        // }
+       
     }
 
     handleChange(event) {
@@ -72,16 +53,6 @@ export class EditGroup extends Component {
         });
     }
 
-    searchTest(term) {
-        var terms = term.toString().trim().toLowerCase().replace(/[A-za-z0-9\s]/g, "");
-        var url = `api/Users/UniversalUserSearch?term=${terms}`;
-        fetch(url).then(response => response.json())
-            .then(jsonData => {
-                // var membersToSelect = jsonData.map(member => { return { value: user_id, display: `${uid.email}` } });
-                // this.setState({ membersToAdd: membersToSelect });
-            })
-            .catch(error => console.log(error));
-    }
 
     checkForExistingMembers() {
         var fromDBMembers = this.state.members;

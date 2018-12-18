@@ -41,7 +41,6 @@ const displayDate = timeStamp => {
 }
 
 const Pin = props => {
-    //console.log("source of trouble", props.entry)
     const pinSize = props.$hover ? '4x' : '3x';
     return (
         <div style={{

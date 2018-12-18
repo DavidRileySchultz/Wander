@@ -90,11 +90,6 @@ export class CreateGroup extends Component {
     searchTest(term2) {
         
         let terms = term2.toString().trim().toLowerCase().replace(/[^A-Za-z0-9\s]/g, "");
-
-        // firebase.database().child('user').orderByChild('emailAddress').equalTo(emailAddress).once('value', function(snap) {
-        //     callback( snap.val() );
-        // });
-
         let url = `http://localhost:50271/api/Travellers/UniversalTravellerSearch?term1=${terms}`;
         fetch(url).then(response => response.json())
             .then(jsonData => {
