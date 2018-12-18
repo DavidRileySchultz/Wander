@@ -152,7 +152,7 @@ class WriteGroupEntry extends Component {
               deleteChosenPhoto={this.deleteChosenPhoto}
             />
             <TitleWrapper>
-              <Title>Write a new group entry</Title>
+              <Title>Write your new group entry</Title>
             </TitleWrapper>
              <form>
              <MainContent>
